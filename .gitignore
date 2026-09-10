@@ -1,0 +1,11 @@
+# B-line enterprise-rag 排除项：不提交 venv / 自指 symlink / 云凭证 / 向量库服务
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.log
+.venv/
+venv/
+results-local/
+*.pem
+*credentials*

@@ -1,0 +1,23 @@
+# B 线迁移参数（设计位，非实现代码）
+
+# 本文件仅为参数/契约占位：记录冻结基线参数作为演进起点，
+# 供后续 hybrid/reranker/harness 里程碑对齐，不包含任何检索逻辑。
+
+baseline_frozen:
+  note: "来自 rag_min_demo/rag_demo.py，冻结只读，数字不可改（只可对照）"
+  recall_at_3: "5/5"
+  mrr: 1.000
+  corpus_docs: 7
+  corpus_chunks: 10
+  vectorizer: "char-bigram TF-IDF"
+  retriever: "cosine 初排 + BM25 融合重排（W_cos 0.6 / W_bm25 0.4）"
+
+design_positions:         # 后续里程碑的调参位，值待定（TBD）
+  max_chars: TBD
+  overlap: TBD
+  candidates: TBD
+  w_cos: 0.6              # 当前基线权重，保留作对照
+  w_bm25: 0.4             # 当前基线权重，保留作对照
+  top_k: 3
+  embedding_model: TBD    # 生产由字二元组切 embedding
+  ann_index: TBD          # FAISS 单机，先单机后服务
