@@ -1,77 +1,47 @@
-# Enterprise RAG
+# enterprise-rag
 
-> **Hybrid retrieval + evaluation harness for enterprise knowledge bases** — 设计文档（spec-only），暂无代码
+> 企业级 RAG 检索侧的**本地迁移准备仓**：从 `rag_min_demo`（单文件 toy demo）向可参数化、可评测、可复算的检索管线演进。
+>
+> 状态：**骨架仓（pre-implementation）**。本仓当前**零核心检索代码**——只收录许可、冻结基线只读引用、设计位文档与配置位；真正的融合检索/重排/评测实现是后续里程碑，不在此处。
 
-![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Status](https://img.shields.io/badge/status-design%20spec--only-lightgrey)
+## 诚实边界（先说清，避免误读）
 
----
+- 冻结基线 `baseline/rag_demo.py` 实测 recall@3 = 5/5、MRR = 1.000，但这是 **7 文档 10 chunk 的 toy 规模**：5/5 证明"链路跑通"，**不证明检索质量**。规模证据在 `paper_agent` 侧（54 万篇 FAISS 基座 + arXiv 增量），不在本仓。
+- 字二元组 TF-IDF + BM25 处理不了同义改写；生产切 embedding + ANN。当前 `10 chunk` 谈不上 ANN。
+- 本仓暂**未写任何生产检索代码**，`hybrid/`、`reranker/`、`harness/` 目前只有接口/契约文档位。
 
-## ⚠️ 现状（2026-10-03）
+## 仓库结构（骨架地图）
 
-**本仓库目前只有这份 README——没有任何代码。** 下面的架构图、接口与指标是设计目标，不是已实现功能。
+| 路径 | 性质 | 说明 |
+| --- | --- | --- |
+| `baseline/` | 冻结引用 | `rag_demo.py` + 7 文档，从 `rag_min_demo` 冻结复制，不改逻辑与语料（只读） |
+| `config/bline.yaml` | 配置位 | 基线参数（权重/TopK/分块上限）设计位，非实现代码 |
+| `hybrid/README.md` | 设计位 | 融合检索策略文档位（初排 + 重排融合） |
+| `reranker/README.md` | 设计位 | 重排接口契约文档位 |
+| `harness/README.md` | 设计位 | 评测驱动契约文档位 |
+| `latency/README.md` | 设计位 | 延迟记录表位 |
+| `golden/README.md` | 设计位 | golden 集契约（冻结期望文档） |
+| `results/README.md` | 设计位 | 评测输出契约 |
+| `demo.sh` | 演示 | 调冻结基线做一键演示（只读） |
+| `BLINE_REPORT.md` | 设计报告 | 迁移准备完整报告 |
+| `LICENSE` | 许可 | MIT（由 `rag_min_demo/bline/LICENSE` 复制） |
 
-- 相关实现进度见姊妹仓 [`enterprise-rag-saas`](https://github.com/aidless/enterprise-rag-saas)（同样处于未完成状态，见其 README）。
-- 如果你在找**现在就能跑**的 RAG 方案，请使用成熟开源：LlamaIndex、LangChain Retrieval、txtai 等。
+## 明确非目标（Non-goals）
 
-## 设计目标
+- 不在本仓写核心检索代码（融合/重排/评测实现留待后续里程碑）。
+- ~~不建远端仓、不对外发布、不 `git push`~~ → **已变更（2026-10-21）**：本仓现已托管于 GitHub `aidless/enterprise-rag`（私有），由 WorkBuddy 接管同步。
+- 不含 venv / 自指 symlink / 云凭证 / 向量库服务端与数据卷。
+- 不改写冻结基线数字（recall@3 = 5/5、MRR = 1.000 只读，可对照不可改）。
 
-A production-oriented RAG (Retrieval-Augmented Generation) system designed for enterprise deployment, with built-in evaluation and hybrid retrieval strategies.
+## 复现冻结基线（只读）
 
-### Key Features（规划）
-
-- **Hybrid Retrieval**: Combines keyword search (BM25) and vector search (ChromaDB) for maximum recall
-- **Evaluation Harness**: Built-in retrieval accuracy + answer quality scoring — don't just build RAG, prove it works
-- **Multi-tenant Architecture**: Designed for enterprise deployment with tenant isolation
-- **Chunking Strategies**: Configurable chunk size, overlap, and semantic chunking options
-- **Source Attribution**: Every answer links back to source documents with relevance scores
-- **Cost Tracking**: Token usage and API cost monitoring per query
-
-### 目标架构
-
-```
-┌──────────────┐    ┌───────────────┐    ┌──────────────┐
-│   Query      │───→│  Hybrid       │───→│  LLM         │───→ Answer + Sources
-│   (user)     │    │  Retriever    │    │  Generator   │
-└──────────────┘    │  (BM25+vector)│    └──────────────┘
-                    └───────┬───────┘
-                            │
-                    ┌───────┴───────┐
-                    │  ChromaDB     │
-                    │  (vectors)    │
-                    └───────────────┘
+```sh
+python3 baseline/rag_demo.py          # 全链路 + 评测，预期 recall@3 = 5/5, MRR = 1.000
+python3 baseline/rag_demo.py --query "分块太大有什么坏处"
 ```
 
-### 目标接口（尚未实现）
+依赖：Python 3.8+，仅标准库。
 
-```bash
-# Index documents
-python -m enterprise_rag index --source ./docs/ --chunk-size 512
+## 许可
 
-# Query
-python -m enterprise_rag query "What is the vacation policy?"
-
-# Run evaluation suite
-python -m enterprise_rag eval --test-set eval.jsonl
-```
-
-### 评估指标（设计）
-
-| Metric | What It Measures |
-|--------|-----------------|
-| Retrieval Recall@K | Did the right chunk appear in top-K results? |
-| Context Precision | How many retrieved chunks are actually relevant? |
-| Answer Faithfulness | Does the answer stay grounded in retrieved context? |
-| Answer Relevance | Does the answer actually address the question? |
-| Cost per Query | Token usage × pricing |
-
----
-
-## Status
-
-**Design / spec only.** 仓库当前不含实现代码；实现推进时更新本节。诚实状态优于虚假徽章。
-
-## License
-
-MIT
+MIT（见 `LICENSE`）。
