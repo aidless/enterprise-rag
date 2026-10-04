@@ -1,2 +1,16 @@
 version: 2
-updates:
+updates: []
+
+# Dependabot is configured but idle.
+#
+# No dependency manifest is tracked here (no requirements.txt, package.json,
+# pyproject.toml, or CI workflow), so there is nothing for Dependabot to update.
+# An empty list is the valid, honest configuration: it disables the schedule
+# without pretending to watch something. Re-enable it with:
+#
+#   version: 2
+#   updates:
+#     - package-ecosystem: "pip"   # or npm / github-actions
+#       directory: "/"
+#       schedule:
+#         interval: "weekly"
