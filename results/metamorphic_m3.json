@@ -1,0 +1,2482 @@
+{
+  "config": {
+    "max_chars": 220,
+    "overlap": 40,
+    "candidates": 10,
+    "w_cos": 0.6,
+    "w_bm25": 0.4,
+    "top_k": 3
+  },
+  "tbd_defaults_used": [
+    "max_chars",
+    "overlap",
+    "candidates"
+  ],
+  "corpus_chunks": 11994,
+  "runs": [
+    {
+      "tag": "before_normalizer",
+      "normalizer": false,
+      "cases": [
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_workflow_kb/ROUND_R31.md",
+          "score": 0.2,
+          "top1_repeat": "paper_workflow_kb/ROUND_R31.md",
+          "score_repeat": 0.2,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  RAG   由哪几部分组成  \n",
+          "top1": "paper_joint_mem_forget/scripts/gate_citations.py",
+          "base_top1": "paper_workflow_kb/ROUND_R31.md",
+          "top3_base": [
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_joint_mem_forget/scripts/gate_citations.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/gate_citations.py",
+            "paper_workflow_kb/scripts/gate_citations.py",
+            "paper_workflow_kb/scripts/check_submission_package.py"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "ＲＡＧ 由哪几部分组成",
+          "top1": "paper_workflow_kb/ROUND_R31.md",
+          "base_top1": "paper_workflow_kb/ROUND_R31.md",
+          "top3_base": [
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_joint_mem_forget/scripts/gate_citations.py"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py"
+          ],
+          "violation": false,
+          "severity": "MED"
+        },
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "由哪几部分组成 RAG",
+          "top1": "paper_workflow_kb/anc/LITERATURE_REVIEW.md",
+          "base_top1": "paper_workflow_kb/ROUND_R31.md",
+          "top3_base": [
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_joint_mem_forget/scripts/gate_citations.py"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/anc/LITERATURE_REVIEW.md",
+            "paper_workflow_kb/LITERATURE_REVIEW.md",
+            "paper_workflow_kb/anc/LITERATURE_REVIEW.md"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "RAG 由哪几部分组成",
+          "top1": "paper_workflow_kb/ROUND_R31.md",
+          "base_top1": "paper_workflow_kb/ROUND_R31.md",
+          "top3_base": [
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_joint_mem_forget/scripts/gate_citations.py"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_joint_mem_forget/scripts/gate_citations.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦RAG 由哪几部分组成的",
+          "top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "base_top1": "paper_workflow_kb/ROUND_R31.md",
+          "top3_base": [
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_workflow_kb/ROUND_R31.md",
+            "paper_joint_mem_forget/scripts/gate_citations.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/ROUND_R31.md"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "score": 0.166667,
+          "top1_repeat": "paper_joint_mem_forget/ROUND_R0.md",
+          "score_repeat": 0.166667,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  分块太大或太小各有什么影响  \n",
+          "top1": "paper_workflow_kb/ROUND_R0.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "分块太大或太小各有什么影响",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "分块太大或太小各有什么影响",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "分块太大或太小各有什么影响",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦分块太大或太小各有什么影响的",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "score": 0.090909,
+          "top1_repeat": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "score_repeat": 0.090909,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  向量数据库怎么选型和调优  \n",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "base_top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "top3_base": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "top3_mut": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/train/train_agent.py",
+            "paper_agent/retrieval/fuse.py"
+          ],
+          "violation": false,
+          "severity": "MED"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "向量数据库怎么选型和调优",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "base_top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "top3_base": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "top3_mut": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "violation": false,
+          "severity": "MED"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "向量数据库怎么选型和调优",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "base_top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "top3_base": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "top3_mut": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "向量数据库怎么选型和调优",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "base_top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "top3_base": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "top3_mut": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦向量数据库怎么选型和调优的",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "base_top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "top3_base": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "top3_mut": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "score": 0.2,
+          "top1_repeat": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "score_repeat": 0.2,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  如何评估问答系统的效果  \n",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "base_top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "top3_base": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "MED"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "如何评估问答系统的效果",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "base_top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "top3_base": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "如何评估问答系统的效果",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "base_top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "top3_base": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "如何评估问答系统的效果",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "base_top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "top3_base": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦如何评估问答系统的效果的",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "base_top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "top3_base": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "score": 0.0,
+          "top1_repeat": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "score_repeat": 0.0,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  番茄炒蛋怎么做  \n",
+          "top1": "paper_joint_mem_forget/scripts/verify_taint.py",
+          "base_top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/verify_taint.py",
+            "paper_workflow_kb/scripts/verify_taint.py",
+            "paper_workflow_kb/scripts/validate_judge_output.py"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "番茄炒蛋怎么做",
+          "top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "base_top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "MED"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "番茄炒蛋怎么做",
+          "top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "base_top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "番茄炒蛋怎么做",
+          "top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "base_top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦番茄炒蛋怎么做的",
+          "top1": "paper_workflow_kb/PREREG_R32_ENYESNO.md",
+          "base_top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/PREREG_R32_ENYESNO.md",
+            "paper_workflow_kb/PREREG_R29_POWER.md",
+            "paper_workflow_kb/PREREG_R28_CROSSDOMAIN.md"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "score": 0.4,
+          "top1_repeat": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "score_repeat": 0.4,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  翻转率   分层   判定标准  \n",
+          "top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "base_top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/PREREG_R30_BOOLQ.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "翻转率 分层 判定标准",
+          "top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "base_top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "判定标准 分层 翻转率",
+          "top1": "paper_workflow_kb/scripts/verify_labels.py",
+          "base_top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/REVIEW_R2/REVIEW_R2_R6-writing.md"
+          ],
+          "violation": false,
+          "severity": "HIGH"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "翻转率 分层",
+          "top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "base_top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/GOLD100_README.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦翻转率 分层 判定标准的",
+          "top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "base_top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "score": 0.675,
+          "top1_repeat": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "score_repeat": 0.675,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  McNemar   检验   样本量   门槛  \n",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "base_top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/REVIEW_R1/REVIEW_R1_R1-methodology.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_workflow_kb/REVIEW_R1/REVIEW_R1_R1-methodology.md",
+            "paper_joint_mem_forget/reports/ledger.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "ＭｃＮｅｍａｒ 检验 样本量 门槛",
+          "top1": "paper_workflow_kb/PREREG_R32_ENYESNO.md",
+          "base_top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/REVIEW_R1/REVIEW_R1_R1-methodology.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/PREREG_R32_ENYESNO.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/reports/ledger.md"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "门槛 样本量 检验 McNemar",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "base_top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/REVIEW_R1/REVIEW_R1_R1-methodology.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_joint_mem_forget/evidence/analysis_plan.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "McNemar 检验 样本量",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "base_top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/REVIEW_R1/REVIEW_R1_R1-methodology.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/REVIEW_R1/REVIEW_R1_R1-methodology.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦McNemar 检验 样本量 门槛的",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "base_top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/REVIEW_R1/REVIEW_R1_R1-methodology.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/REVIEW_R1/REVIEW_R1_R1-methodology.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_agent/DELIVERY.md",
+          "score": 0.666667,
+          "top1_repeat": "paper_agent/DELIVERY.md",
+          "score_repeat": 0.666667,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  QLoRA   4bit   量化   LoRA   rank  \n",
+          "top1": "paper_agent/DELIVERY.md",
+          "base_top1": "paper_agent/DELIVERY.md",
+          "top3_base": [
+            "paper_agent/DELIVERY.md",
+            "paper_agent/DELIVERY.md",
+            "paper_agent/train/train_dpo.py"
+          ],
+          "top3_mut": [
+            "paper_agent/DELIVERY.md",
+            "paper_agent/DELIVERY.md",
+            "paper_workflow_kb/anc/LITERATURE_REVIEW.md"
+          ],
+          "violation": false,
+          "severity": "MED"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "ＱＬｏＲＡ ４ｂｉｔ 量化 ＬｏＲＡ ｒａｎｋ",
+          "top1": "paper_workflow_kb/ROUND_R25.md",
+          "base_top1": "paper_agent/DELIVERY.md",
+          "top3_base": [
+            "paper_agent/DELIVERY.md",
+            "paper_agent/DELIVERY.md",
+            "paper_agent/train/train_dpo.py"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/ROUND_R25.md",
+            "paper_workflow_kb/SELF_ASSESSMENT.md",
+            "paper_workflow_kb/SELF_ASSESSMENT.md"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "rank LoRA 量化 4bit QLoRA",
+          "top1": "paper_agent/DELIVERY.md",
+          "base_top1": "paper_agent/DELIVERY.md",
+          "top3_base": [
+            "paper_agent/DELIVERY.md",
+            "paper_agent/DELIVERY.md",
+            "paper_agent/train/train_dpo.py"
+          ],
+          "top3_mut": [
+            "paper_agent/DELIVERY.md",
+            "paper_agent/DELIVERY.md",
+            "paper_workflow_kb/LITERATURE_REVIEW.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "QLoRA 4bit 量化 LoRA",
+          "top1": "paper_agent/DELIVERY.md",
+          "base_top1": "paper_agent/DELIVERY.md",
+          "top3_base": [
+            "paper_agent/DELIVERY.md",
+            "paper_agent/DELIVERY.md",
+            "paper_agent/train/train_dpo.py"
+          ],
+          "top3_mut": [
+            "paper_agent/DELIVERY.md",
+            "paper_agent/DELIVERY.md",
+            "paper_agent/evidence/make_inventory.py"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦QLoRA 4bit 量化 LoRA rank的",
+          "top1": "paper_agent/DELIVERY.md",
+          "base_top1": "paper_agent/DELIVERY.md",
+          "top3_base": [
+            "paper_agent/DELIVERY.md",
+            "paper_agent/DELIVERY.md",
+            "paper_agent/train/train_dpo.py"
+          ],
+          "top3_mut": [
+            "paper_agent/DELIVERY.md",
+            "paper_agent/DELIVERY.md",
+            "paper_agent/train/train_dpo.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "score": 0.5,
+          "top1_repeat": "paper_joint_mem_forget/ROUND_R1.md",
+          "score_repeat": 0.5,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  成本   协商   非劣效  \n",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md",
+            "paper_joint_mem_forget/evidence/protocol.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "成本 协商 非劣效",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "非劣效 协商 成本",
+          "top1": "paper_joint_mem_forget/STATE_SNAPSHOT.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/ROUND_R1.md"
+          ],
+          "violation": false,
+          "severity": "HIGH"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "成本 协商",
+          "top1": "paper_workflow_kb/ROUND_R22.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/ROUND_R22.md",
+            "paper_agent/DECISION_20261008.md",
+            "paper_workflow_kb/ROUND_R24.md"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦成本 协商 非劣效的",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "score": 0.222222,
+          "top1_repeat": "paper_joint_mem_forget/ROUND_R1.md",
+          "score_repeat": 0.222222,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  门禁   零耦合   反作弊  \n",
+          "top1": "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/scripts/gate_citations.py",
+            "paper_joint_mem_forget/scripts/gate_citations.py"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "门禁 零耦合 反作弊",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "反作弊 零耦合 门禁",
+          "top1": "paper_workflow_kb/ROUND_R8.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/ROUND_R8.md",
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md"
+          ],
+          "violation": false,
+          "severity": "HIGH"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "门禁 零耦合",
+          "top1": "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md",
+            "paper_workflow_kb/ROUND_R14.md"
+          ],
+          "violation": false,
+          "severity": "HIGH"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦门禁 零耦合 反作弊的",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        }
+      ],
+      "summary": {
+        "INVARIANT": {
+          "n": 30,
+          "violations": 6,
+          "violation_rate": 0.2,
+          "by_mr": {
+            "MR-2": {
+              "n": 4,
+              "queries": [
+                "RAG 由哪几部分组成",
+                "分块太大或太小各有什么影响",
+                "番茄炒蛋怎么做",
+                "门禁 零耦合 反作弊"
+              ]
+            },
+            "MR-3": {
+              "n": 2,
+              "queries": [
+                "McNemar 检验 样本量 门槛",
+                "QLoRA 4bit 量化 LoRA rank"
+              ]
+            }
+          }
+        },
+        "DESIRABLE": {
+          "n": 30,
+          "violations": 11,
+          "violation_rate": 0.3667,
+          "by_mr": {
+            "MR-4": {
+              "n": 4,
+              "queries": [
+                "QLoRA 4bit 量化 LoRA rank",
+                "RAG 由哪几部分组成",
+                "向量数据库怎么选型和调优",
+                "番茄炒蛋怎么做"
+              ]
+            },
+            "MR-6": {
+              "n": 3,
+              "queries": [
+                "RAG 由哪几部分组成",
+                "向量数据库怎么选型和调优",
+                "番茄炒蛋怎么做"
+              ]
+            },
+            "MR-5": {
+              "n": 4,
+              "queries": [
+                "QLoRA 4bit 量化 LoRA rank",
+                "向量数据库怎么选型和调优",
+                "成本 协商 非劣效",
+                "番茄炒蛋怎么做"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "tag": "after_normalizer",
+      "normalizer": true,
+      "cases": [
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "score": 0.4,
+          "top1_repeat": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "score_repeat": 0.4,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  RAG   由哪几部分组成  \n",
+          "top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "base_top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "ＲＡＧ 由哪几部分组成",
+          "top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "base_top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "由哪几部分组成 RAG",
+          "top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "base_top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py"
+          ],
+          "violation": false,
+          "severity": "HIGH"
+        },
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "RAG 由哪几部分组成",
+          "top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "base_top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "RAG 由哪几部分组成",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦RAG 由哪几部分组成的",
+          "top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "base_top1": "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/scripts/check_literature_freshness.py",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "score": 0.166667,
+          "top1_repeat": "paper_joint_mem_forget/ROUND_R0.md",
+          "score_repeat": 0.166667,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  分块太大或太小各有什么影响  \n",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "分块太大或太小各有什么影响",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "分块太大或太小各有什么影响",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "分块太大或太小各有什么影响",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "分块太大或太小各有什么影响",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦分块太大或太小各有什么影响的",
+          "top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R0.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R0.md",
+            "paper_workflow_kb/ROUND_R0.md",
+            "paper_workflow_kb/scripts/r18_loose_rep60.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "score": 0.090909,
+          "top1_repeat": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "score_repeat": 0.090909,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  向量数据库怎么选型和调优  \n",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "base_top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "top3_base": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "top3_mut": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "violation": false,
+          "severity": "MED"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "向量数据库怎么选型和调优",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "base_top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "top3_base": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "top3_mut": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "violation": false,
+          "severity": "MED"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "向量数据库怎么选型和调优",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "base_top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "top3_base": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "top3_mut": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "向量数据库怎么选型和调优",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "base_top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "top3_base": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "top3_mut": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "向量数据库怎么选型和调优",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦向量数据库怎么选型和调优的",
+          "top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "base_top1": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+          "top3_base": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "top3_mut": [
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+            "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "score": 0.2,
+          "top1_repeat": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "score_repeat": 0.2,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  如何评估问答系统的效果  \n",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "base_top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "top3_base": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "如何评估问答系统的效果",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "base_top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "top3_base": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "如何评估问答系统的效果",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "base_top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "top3_base": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "如何评估问答系统的效果",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "base_top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "top3_base": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "如何评估问答系统的效果",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦如何评估问答系统的效果的",
+          "top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "base_top1": "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+          "top3_base": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/REVIEW_R1_ethics.md",
+            "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+            "paper_workflow_kb/scripts/test_evidence_protection.py"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "score": 0.0,
+          "top1_repeat": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "score_repeat": 0.0,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  番茄炒蛋怎么做  \n",
+          "top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "base_top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "MED"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "番茄炒蛋怎么做",
+          "top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "base_top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "MED"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "番茄炒蛋怎么做",
+          "top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "base_top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "番茄炒蛋怎么做",
+          "top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "base_top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": true,
+          "severity": "MED"
+        },
+        {
+          "query": "番茄炒蛋怎么做",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦番茄炒蛋怎么做的",
+          "top1": "paper_workflow_kb/PREREG_R32_ENYESNO.md",
+          "base_top1": "paper_workflow_kb/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/PREREG_R32_ENYESNO.md",
+            "paper_workflow_kb/PREREG_R29_POWER.md",
+            "paper_workflow_kb/PREREG_R28_CROSSDOMAIN.md"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "score": 0.4,
+          "top1_repeat": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "score_repeat": 0.4,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  翻转率   分层   判定标准  \n",
+          "top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "base_top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "翻转率 分层 判定标准",
+          "top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "base_top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "判定标准 分层 翻转率",
+          "top1": "paper_workflow_kb/scripts/verify_labels.py",
+          "base_top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/REVIEW_R2/REVIEW_R2_R6-writing.md"
+          ],
+          "violation": false,
+          "severity": "HIGH"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "翻转率 分层",
+          "top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "base_top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/GOLD100_README.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "翻转率 分层 判定标准",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦翻转率 分层 判定标准的",
+          "top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "base_top1": "paper_joint_mem_forget/scripts/verify_labels.py",
+          "top3_base": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/scripts/verify_labels.py",
+            "paper_workflow_kb/scripts/verify_labels.py",
+            "paper_workflow_kb/R26_ADJUDICATION_REVIEW.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "score": 0.625,
+          "top1_repeat": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "score_repeat": 0.625,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  McNemar   检验   样本量   门槛  \n",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "base_top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "ＭｃＮｅｍａｒ 检验 样本量 门槛",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "base_top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "门槛 样本量 检验 McNemar",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "base_top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/evidence/analysis_plan.md",
+            "paper_joint_mem_forget/reports/ledger.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "McNemar 检验 样本量",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "base_top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "McNemar 检验 样本量 门槛",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦McNemar 检验 样本量 门槛的",
+          "top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "base_top1": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+          "top3_base": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/CLAIM_LEDGER.md",
+            "paper_joint_mem_forget/reports/ledger.md",
+            "paper_workflow_kb/CLAIM_LEDGER.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_workflow_kb/evidence/rater2_r12.json",
+          "score": 0.588235,
+          "top1_repeat": "paper_workflow_kb/evidence/rater2_r12.json",
+          "score_repeat": 0.588235,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  QLoRA   4bit   量化   LoRA   rank  \n",
+          "top1": "paper_workflow_kb/evidence/rater2_r12.json",
+          "base_top1": "paper_workflow_kb/evidence/rater2_r12.json",
+          "top3_base": [
+            "paper_workflow_kb/evidence/rater2_r12.json",
+            "paper_agent/train/train_agent.py",
+            "paper_workflow_kb/SELF_ASSESSMENT.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/evidence/rater2_r12.json",
+            "paper_agent/train/train_agent.py",
+            "paper_workflow_kb/SELF_ASSESSMENT.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "ＱＬｏＲＡ ４ｂｉｔ 量化 ＬｏＲＡ ｒａｎｋ",
+          "top1": "paper_workflow_kb/evidence/rater2_r12.json",
+          "base_top1": "paper_workflow_kb/evidence/rater2_r12.json",
+          "top3_base": [
+            "paper_workflow_kb/evidence/rater2_r12.json",
+            "paper_agent/train/train_agent.py",
+            "paper_workflow_kb/SELF_ASSESSMENT.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/evidence/rater2_r12.json",
+            "paper_agent/train/train_agent.py",
+            "paper_workflow_kb/SELF_ASSESSMENT.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "rank LoRA 量化 4bit QLoRA",
+          "top1": "paper_workflow_kb/scripts/apply_R24.py",
+          "base_top1": "paper_workflow_kb/evidence/rater2_r12.json",
+          "top3_base": [
+            "paper_workflow_kb/evidence/rater2_r12.json",
+            "paper_agent/train/train_agent.py",
+            "paper_workflow_kb/SELF_ASSESSMENT.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/scripts/apply_R24.py",
+            "paper_agent/infer/infer_agent.py",
+            "paper_workflow_kb/scripts/apply_R24.py"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "QLoRA 4bit 量化 LoRA",
+          "top1": "paper_agent/train/train_agent.py",
+          "base_top1": "paper_workflow_kb/evidence/rater2_r12.json",
+          "top3_base": [
+            "paper_workflow_kb/evidence/rater2_r12.json",
+            "paper_agent/train/train_agent.py",
+            "paper_workflow_kb/SELF_ASSESSMENT.md"
+          ],
+          "top3_mut": [
+            "paper_agent/train/train_agent.py",
+            "paper_workflow_kb/ROUND_R25.md",
+            "paper_workflow_kb/SELF_ASSESSMENT.md"
+          ],
+          "violation": false,
+          "severity": "HIGH"
+        },
+        {
+          "query": "QLoRA 4bit 量化 LoRA rank",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦QLoRA 4bit 量化 LoRA rank的",
+          "top1": "paper_workflow_kb/evidence/rater2_r12.json",
+          "base_top1": "paper_workflow_kb/evidence/rater2_r12.json",
+          "top3_base": [
+            "paper_workflow_kb/evidence/rater2_r12.json",
+            "paper_agent/train/train_agent.py",
+            "paper_workflow_kb/SELF_ASSESSMENT.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/evidence/rater2_r12.json",
+            "paper_agent/train/train_agent.py",
+            "paper_workflow_kb/SELF_ASSESSMENT.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "score": 0.5,
+          "top1_repeat": "paper_joint_mem_forget/ROUND_R1.md",
+          "score_repeat": 0.5,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  成本   协商   非劣效  \n",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "成本 协商 非劣效",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "非劣效 协商 成本",
+          "top1": "paper_joint_mem_forget/STATE_SNAPSHOT.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/ROUND_R1.md"
+          ],
+          "violation": false,
+          "severity": "HIGH"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "成本 协商",
+          "top1": "paper_workflow_kb/ROUND_R22.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/ROUND_R22.md",
+            "paper_agent/DECISION_20261008.md",
+            "paper_workflow_kb/ROUND_R24.md"
+          ],
+          "violation": true,
+          "severity": "HIGH"
+        },
+        {
+          "query": "成本 协商 非劣效",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦成本 协商 非劣效的",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_joint_mem_forget/evidence/protocol.md",
+            "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-1",
+          "class": "INVARIANT",
+          "mutation": "(none)",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "score": 0.222222,
+          "top1_repeat": "paper_joint_mem_forget/ROUND_R1.md",
+          "score_repeat": 0.222222,
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-2",
+          "class": "INVARIANT",
+          "mutation": "whitespace",
+          "mutated_query": "  门禁   零耦合   反作弊  \n",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-3",
+          "class": "INVARIANT",
+          "mutation": "casewidth",
+          "mutated_query": "门禁 零耦合 反作弊",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-4",
+          "class": "DESIRABLE",
+          "mutation": "order",
+          "mutated_query": "反作弊 零耦合 门禁",
+          "top1": "paper_workflow_kb/ROUND_R8.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/ROUND_R8.md",
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md"
+          ],
+          "violation": false,
+          "severity": "HIGH"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-5",
+          "class": "DESIRABLE",
+          "mutation": "drop_last",
+          "mutated_query": "门禁 零耦合",
+          "top1": "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "top3_mut": [
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md",
+            "paper_workflow_kb/ROUND_R14.md"
+          ],
+          "violation": false,
+          "severity": "HIGH"
+        },
+        {
+          "query": "门禁 零耦合 反作弊",
+          "mr": "MR-6",
+          "class": "DESIRABLE",
+          "mutation": "stopword",
+          "mutated_query": "麻烦门禁 零耦合 反作弊的",
+          "top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "base_top1": "paper_joint_mem_forget/ROUND_R1.md",
+          "top3_base": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "top3_mut": [
+            "paper_joint_mem_forget/ROUND_R1.md",
+            "paper_workflow_kb/MISSION_R27_29_REQUALIFICATION.md",
+            "paper_workflow_kb/ROUND_R1.md"
+          ],
+          "violation": false,
+          "severity": "NONE"
+        }
+      ],
+      "summary": {
+        "INVARIANT": {
+          "n": 30,
+          "violations": 0,
+          "violation_rate": 0.0,
+          "by_mr": {}
+        },
+        "DESIRABLE": {
+          "n": 30,
+          "violations": 8,
+          "violation_rate": 0.2667,
+          "by_mr": {
+            "MR-4": {
+              "n": 3,
+              "queries": [
+                "QLoRA 4bit 量化 LoRA rank",
+                "向量数据库怎么选型和调优",
+                "番茄炒蛋怎么做"
+              ]
+            },
+            "MR-5": {
+              "n": 3,
+              "queries": [
+                "向量数据库怎么选型和调优",
+                "成本 协商 非劣效",
+                "番茄炒蛋怎么做"
+              ]
+            },
+            "MR-6": {
+              "n": 2,
+              "queries": [
+                "向量数据库怎么选型和调优",
+                "番茄炒蛋怎么做"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "comparison": {
+    "INVARIANT": {
+      "before": 6,
+      "before_rate": 0.2,
+      "after": 0,
+      "after_rate": 0.0,
+      "fixed_by_normalizer": 6
+    },
+    "DESIRABLE": {
+      "before": 11,
+      "before_rate": 0.3667,
+      "after": 8,
+      "after_rate": 0.2667,
+      "fixed_by_normalizer": 3
+    }
+  }
+}
