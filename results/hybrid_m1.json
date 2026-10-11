@@ -1,0 +1,234 @@
+{
+  "config": {
+    "max_chars": 220,
+    "overlap": 40,
+    "candidates": 10,
+    "w_cos": 0.6,
+    "w_bm25": 0.4,
+    "top_k": 3
+  },
+  "tbd_defaults_used": [
+    "max_chars",
+    "overlap",
+    "candidates"
+  ],
+  "main": {
+    "n": 10,
+    "recall_at_3": 8,
+    "recall_rate": 0.8,
+    "mrr": 0.55,
+    "latency_ms_p50": 7.56,
+    "latency_ms_p95": 29.09,
+    "corpus_docs": 537,
+    "corpus_chunks": 11994,
+    "rows": [
+      {
+        "q": "RAG 由哪几部分组成",
+        "level": "baseline",
+        "ok": true,
+        "rank": 3,
+        "doc": "paper_joint_mem_forget/scripts/gate_citations.py",
+        "how": "hit"
+      },
+      {
+        "q": "分块太大或太小各有什么影响",
+        "level": "baseline",
+        "ok": false,
+        "rank": null,
+        "doc": "paper_joint_mem_forget/ROUND_R0.md",
+        "how": "miss"
+      },
+      {
+        "q": "向量数据库怎么选型和调优",
+        "level": "baseline",
+        "ok": true,
+        "rank": 3,
+        "doc": "paper_agent/reports/RETRIEVAL_UPGRADE.md",
+        "how": "hit"
+      },
+      {
+        "q": "如何评估问答系统的效果",
+        "level": "baseline",
+        "ok": true,
+        "rank": 2,
+        "doc": "paper_joint_mem_forget/scripts/test_evidence_protection.py",
+        "how": "hit"
+      },
+      {
+        "q": "番茄炒蛋怎么做",
+        "level": "baseline",
+        "ok": false,
+        "rank": null,
+        "doc": "paper_workflow_kb/CLAIM_LEDGER.md",
+        "how": "miss"
+      },
+      {
+        "q": "翻转率 分层 判定标准",
+        "level": "extended",
+        "ok": true,
+        "rank": 1,
+        "doc": "paper_joint_mem_forget/scripts/verify_labels.py",
+        "how": "hit"
+      },
+      {
+        "q": "McNemar 检验 样本量 门槛",
+        "level": "extended",
+        "ok": true,
+        "rank": 1,
+        "doc": "paper_joint_mem_forget/CLAIM_LEDGER.md",
+        "how": "hit"
+      },
+      {
+        "q": "QLoRA 4bit 量化 LoRA rank",
+        "level": "extended",
+        "ok": true,
+        "rank": 1,
+        "doc": "paper_agent/DELIVERY.md",
+        "how": "hit"
+      },
+      {
+        "q": "成本 协商 非劣效",
+        "level": "extended",
+        "ok": true,
+        "rank": 3,
+        "doc": "paper_joint_mem_forget/STATE_SNAPSHOT.md",
+        "how": "hit"
+      },
+      {
+        "q": "门禁 零耦合 反作弊",
+        "level": "extended",
+        "ok": true,
+        "rank": 1,
+        "doc": "paper_joint_mem_forget/ROUND_R1.md",
+        "how": "hit"
+      }
+    ]
+  },
+  "sweep": [
+    {
+      "w_cos": 0.0,
+      "w_bm25": 1.0,
+      "recall_at_3": 8,
+      "mrr": 0.6333,
+      "n": 10
+    },
+    {
+      "w_cos": 0.2,
+      "w_bm25": 0.8,
+      "recall_at_3": 8,
+      "mrr": 0.6167,
+      "n": 10
+    },
+    {
+      "w_cos": 0.4,
+      "w_bm25": 0.6,
+      "recall_at_3": 8,
+      "mrr": 0.5667,
+      "n": 10
+    },
+    {
+      "w_cos": 0.5,
+      "w_bm25": 0.5,
+      "recall_at_3": 8,
+      "mrr": 0.55,
+      "n": 10
+    },
+    {
+      "w_cos": 0.6,
+      "w_bm25": 0.4,
+      "recall_at_3": 8,
+      "mrr": 0.55,
+      "n": 10
+    },
+    {
+      "w_cos": 0.8,
+      "w_bm25": 0.2,
+      "recall_at_3": 8,
+      "mrr": 0.55,
+      "n": 10
+    },
+    {
+      "w_cos": 1.0,
+      "w_bm25": 0.0,
+      "recall_at_3": 8,
+      "mrr": 0.55,
+      "n": 10
+    }
+  ],
+  "cutoff_study": [
+    {
+      "candidates": 10,
+      "recall_at_3": 8,
+      "mrr": 0.55
+    },
+    {
+      "candidates": 20,
+      "recall_at_3": 8,
+      "mrr": 0.55
+    },
+    {
+      "candidates": 50,
+      "recall_at_3": 8,
+      "mrr": 0.55
+    },
+    {
+      "candidates": 100,
+      "recall_at_3": 8,
+      "mrr": 0.55
+    },
+    {
+      "candidates": 200,
+      "recall_at_3": 8,
+      "mrr": 0.55
+    },
+    {
+      "candidates": 500,
+      "recall_at_3": 8,
+      "mrr": 0.55
+    }
+  ],
+  "overlap_study": [
+    {
+      "overlap": 0,
+      "recall_at_3": 8,
+      "mrr": 0.5833,
+      "chunks": 11994
+    },
+    {
+      "overlap": 20,
+      "recall_at_3": 8,
+      "mrr": 0.55,
+      "chunks": 11994
+    },
+    {
+      "overlap": 40,
+      "recall_at_3": 8,
+      "mrr": 0.55,
+      "chunks": 11994
+    },
+    {
+      "overlap": 80,
+      "recall_at_3": 8,
+      "mrr": 0.625,
+      "chunks": 11994
+    }
+  ],
+  "rerank_ablation": {
+    "on": {
+      "recall_at_3": 8,
+      "mrr": 0.55
+    },
+    "off": {
+      "recall_at_3": 8,
+      "mrr": 0.55
+    },
+    "delta_recall": 0
+  },
+  "baseline_frozen": {
+    "recall_at_3": "5/5",
+    "mrr": 1.0,
+    "corpus_docs": 7,
+    "corpus_chunks": 10,
+    "note": "来自 rag_min_demo，数字不可改，只可对照"
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "config": {
+    "max_chars": 220,
+    "overlap": 40,
+    "candidates": 10,
+    "w_cos": 0.6,
+    "w_bm25": 0.4,
+    "top_k": 3
+  },
+  "corpus": {
+    "docs": 537,
+    "chunks": 11994
+  },
+  "query_lang": {
+    "zh": 9,
+    "en": 1,
+    "per_query": [
+      {
+        "q": "RAG 由哪几部分组成",
+        "lang": "zh",
+        "cjk_ratio": 0.7
+      },
+      {
+        "q": "分块太大或太小各有什么影响",
+        "lang": "zh",
+        "cjk_ratio": 1.0
+      },
+      {
+        "q": "向量数据库怎么选型和调优",
+        "lang": "zh",
+        "cjk_ratio": 1.0
+      },
+      {
+        "q": "如何评估问答系统的效果",
+        "lang": "zh",
+        "cjk_ratio": 1.0
+      },
+      {
+        "q": "番茄炒蛋怎么做",
+        "lang": "zh",
+        "cjk_ratio": 1.0
+      },
+      {
+        "q": "翻转率 分层 判定标准",
+        "lang": "zh",
+        "cjk_ratio": 1.0
+      },
+      {
+        "q": "McNemar 检验 样本量 门槛",
+        "lang": "zh",
+        "cjk_ratio": 0.5
+      },
+      {
+        "q": "QLoRA 4bit 量化 LoRA rank",
+        "lang": "en",
+        "cjk_ratio": 0.105
+      },
+      {
+        "q": "成本 协商 非劣效",
+        "lang": "zh",
+        "cjk_ratio": 1.0
+      },
+      {
+        "q": "门禁 零耦合 反作弊",
+        "lang": "zh",
+        "cjk_ratio": 1.0
+      }
+    ],
+    "note": "M1 题集为中文 query；encoder 语言不匹配是本实验的核心协变量"
+  },
+  "dense_zh": {
+    "model": "BAAI/bge-small-zh-v1.5",
+    "dim": 512,
+    "build_s": 18.088
+  },
+  "main_dense_zh": {
+    "name": "dense-bge-zh(中文模型)",
+    "n": 10,
+    "recall_at_3": "5/10",
+    "recall_at_3_val": 0.5,
+    "mrr_at_3": 0.45,
+    "by_level": {
+      "baseline": {
+        "n": 5,
+        "recall_at_3": "0/5",
+        "recall_at_3_val": 0.0
+      },
+      "extended": {
+        "n": 5,
+        "recall_at_3": "5/5",
+        "recall_at_3_val": 1.0
+      }
+    },
+    "latency_ms": {
+      "p50": 17.904,
+      "p95": 109.828
+    },
+    "bootstrap_ci_95": {
+      "low": 0.2,
+      "high": 0.8,
+      "note": "n=10, seed=20261011"
+    },
+    "missed_queries": [
+      "RAG 由哪几部分组成",
+      "分块太大或太小各有什么影响",
+      "向量数据库怎么选型和调优",
+      "如何评估问答系统的效果",
+      "番茄炒蛋怎么做"
+    ],
+    "per_item": [
+      {
+        "q": "RAG 由哪几部分组成",
+        "expect": "rag_overview",
+        "lang": "zh",
+        "cjk_ratio": 0.7,
+        "hit": false,
+        "rank": null,
+        "top_doc": "paper_workflow_kb/REVIEW_R3/REVIEW_R3_R2-statistics.md"
+      },
+      {
+        "q": "分块太大或太小各有什么影响",
+        "expect": "chunking",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": false,
+        "rank": null,
+        "top_doc": "paper_workflow_kb/scripts/scan_stats_consistency.py"
+      },
+      {
+        "q": "向量数据库怎么选型和调优",
+        "expect": "vector_db",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": false,
+        "rank": null,
+        "top_doc": "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+      },
+      {
+        "q": "如何评估问答系统的效果",
+        "expect": "eval",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": false,
+        "rank": null,
+        "top_doc": "paper_joint_mem_forget/evidence/analysis_plan.md"
+      },
+      {
+        "q": "番茄炒蛋怎么做",
+        "expect": "cooking",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": false,
+        "rank": null,
+        "top_doc": "paper_workflow_kb/evidence/cloud_powrep255_raw.json"
+      },
+      {
+        "q": "翻转率 分层 判定标准",
+        "expect": "flip",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": true,
+        "rank": 1,
+        "top_doc": "paper_workflow_kb/CLAIM_LEDGER.md"
+      },
+      {
+        "q": "McNemar 检验 样本量 门槛",
+        "expect": "mcnemar",
+        "lang": "zh",
+        "cjk_ratio": 0.5,
+        "hit": true,
+        "rank": 1,
+        "top_doc": "paper_workflow_kb/anc/LITERATURE_REVIEW.md"
+      },
+      {
+        "q": "QLoRA 4bit 量化 LoRA rank",
+        "expect": "qlora",
+        "lang": "en",
+        "cjk_ratio": 0.105,
+        "hit": true,
+        "rank": 1,
+        "top_doc": "paper_agent/train/train_agent.py"
+      },
+      {
+        "q": "成本 协商 非劣效",
+        "expect": "cost",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": true,
+        "rank": 2,
+        "top_doc": "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+      },
+      {
+        "q": "门禁 零耦合 反作弊",
+        "expect": "gate",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": true,
+        "rank": 1,
+        "top_doc": "paper_workflow_kb/ROUND_R25_POLISH.md"
+      }
+    ]
+  },
+  "main_sparse_m1cfg": {
+    "name": "sparse-M1cfg(w_cos=0.6,w_bm25=0.4)",
+    "n": 10,
+    "recall_at_3": "8/10",
+    "recall_at_3_val": 0.8,
+    "mrr_at_3": 0.55,
+    "by_level": {
+      "baseline": {
+        "n": 5,
+        "recall_at_3": "3/5",
+        "recall_at_3_val": 0.6
+      },
+      "extended": {
+        "n": 5,
+        "recall_at_3": "5/5",
+        "recall_at_3_val": 1.0
+      }
+    },
+    "latency_ms": {
+      "p50": 5.459,
+      "p95": 47.01
+    },
+    "bootstrap_ci_95": {
+      "low": 0.5,
+      "high": 1.0,
+      "note": "n=10, seed=20261011"
+    },
+    "missed_queries": [
+      "分块太大或太小各有什么影响",
+      "番茄炒蛋怎么做"
+    ],
+    "per_item": [
+      {
+        "q": "RAG 由哪几部分组成",
+        "expect": "rag_overview",
+        "lang": "zh",
+        "cjk_ratio": 0.7,
+        "hit": true,
+        "rank": 3,
+        "top_doc": "paper_joint_mem_forget/scripts/gate_citations.py"
+      },
+      {
+        "q": "分块太大或太小各有什么影响",
+        "expect": "chunking",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": false,
+        "rank": null,
+        "top_doc": "paper_workflow_kb/scripts/r18_loose_rep60.py"
+      },
+      {
+        "q": "向量数据库怎么选型和调优",
+        "expect": "vector_db",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": true,
+        "rank": 3,
+        "top_doc": "paper_agent/reports/RETRIEVAL_UPGRADE.md"
+      },
+      {
+        "q": "如何评估问答系统的效果",
+        "expect": "eval",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": true,
+        "rank": 2,
+        "top_doc": "paper_joint_mem_forget/scripts/test_evidence_protection.py"
+      },
+      {
+        "q": "番茄炒蛋怎么做",
+        "expect": "cooking",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": false,
+        "rank": null,
+        "top_doc": "paper_workflow_kb/CLAIM_LEDGER.md"
+      },
+      {
+        "q": "翻转率 分层 判定标准",
+        "expect": "flip",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": true,
+        "rank": 1,
+        "top_doc": "paper_joint_mem_forget/scripts/verify_labels.py"
+      },
+      {
+        "q": "McNemar 检验 样本量 门槛",
+        "expect": "mcnemar",
+        "lang": "zh",
+        "cjk_ratio": 0.5,
+        "hit": true,
+        "rank": 1,
+        "top_doc": "paper_joint_mem_forget/CLAIM_LEDGER.md"
+      },
+      {
+        "q": "QLoRA 4bit 量化 LoRA rank",
+        "expect": "qlora",
+        "lang": "en",
+        "cjk_ratio": 0.105,
+        "hit": true,
+        "rank": 1,
+        "top_doc": "paper_agent/DELIVERY.md"
+      },
+      {
+        "q": "成本 协商 非劣效",
+        "expect": "cost",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": true,
+        "rank": 3,
+        "top_doc": "paper_joint_mem_forget/STATE_SNAPSHOT.md"
+      },
+      {
+        "q": "门禁 零耦合 反作弊",
+        "expect": "gate",
+        "lang": "zh",
+        "cjk_ratio": 1.0,
+        "hit": true,
+        "rank": 1,
+        "top_doc": "paper_joint_mem_forget/ROUND_R1.md"
+      }
+    ]
+  }
+}
