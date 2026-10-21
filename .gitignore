@@ -9,8 +9,21 @@ venv/
 results-local/
 *.pem
 *credentials*
-# 环境变量（密钥保护，接管同步补充）
+
+# --- added by WorkBuddy takeover 2026-10-21 ---
+# 环境变量（密钥保护）
 .env
 .env.*
 !.env.example
 !.env.template
+# 依赖与构建产物
+node_modules/
+dist/
+build/
+*.egg-info/
+# 数据与模型（本地大体文件，不入库）
+data/
+models/
+# 回归临时区与备份文件
+.regression_tmp/
+*.bak*
