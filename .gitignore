@@ -9,3 +9,19 @@ venv/
 results-local/
 *.pem
 *credentials*
+
+# --- added by WorkBuddy takeover 2026-10-21 ---
+.env
+.env.*
+!.env.example
+!.env.template
+node_modules/
+dist/
+build/
+*.egg-info/
+data/
+models/
+.regression_tmp/
+*.bak
+
+*.bak*
