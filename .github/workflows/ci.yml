@@ -86,6 +86,12 @@ jobs:
           fi
           echo "baseline passed"
 
+          # The baseline compile just populated __pycache__. Remove it before
+          # corrupting the source: reuse of a stale .pyc can make the second
+          # compileall accept a syntax error and turn this control into a no-op.
+          find . -type d -name '__pycache__' -prune -exec rm -rf {} + 2>/dev/null || true
+          find . -type f -name '*.pyc' -delete 2>/dev/null || true
+
           target=$(git ls-files '*.py' | head -1)
           if [ -z "$target" ]; then
             echo "no Python sources tracked, so there is nothing to corrupt"
