@@ -2,15 +2,10 @@
   "meta": {
     "repo": "enterprise-rag",
     "demo": "retrieval-evidence",
-    "commit": "79371c5",
-    "worktree_dirty": true,
-    "dirty_paths": [
-      "demo/payload.py",
-      "demo/public/app.js",
-      "demo/public/index.html",
-      "demo/public/style.css"
-    ],
-    "generated_at": "2026-10-22T08:00:20+00:00",
+    "commit": "7c0d7dc",
+    "worktree_dirty": false,
+    "dirty_paths": [],
+    "generated_at": "2026-10-22T08:01:56+00:00",
     "mode": "result-replay+baseline-live",
     "python": "3.12.3",
     "note": "结果回放：私有 11994-chunk 语料不在仓内；/api/query 只跑 7-doc/10-chunk 冻结基线。"
