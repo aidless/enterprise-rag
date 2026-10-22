@@ -4,6 +4,8 @@
 >
 > 状态：**M1–M3 已实现并跑出真实数字（2026-10-11），但不是生产级**。检索链路、真语义向量对比、变异测试都有可运行代码与落盘结果；缺 50+ 题集、语义级重排、负例拒答场景。
 
+[**Live demo**](https://aidless.github.io/enterprise-rag/) · [Demo 文档](demo/README.md)
+
 ## 30 秒看清这个仓在做什么
 
 | 模块 | 状态 | 一句话 |
@@ -57,7 +59,7 @@ python3 hybrid/metamorphic_test.py
 ## 明确非目标（Non-goals）
 
 - 不对外宣称生产级；本仓是"迁移准备 + 消融实验"的载体，不是产品。
-- ~~不建远端仓、不对外发布、不 `git push`~~ → **已变更（2026-10-21）**：本仓现已托管于 GitHub `aidless/enterprise-rag`（私有），由 WorkBuddy 接管同步。
+- ~~不建远端仓、不对外发布、不 `git push`~~ → **已变更（2026-10-21）**：本仓现已托管于 GitHub `aidless/enterprise-rag`（公开），由 WorkBuddy 接管同步。
 - 不含 venv / 自指 symlink / 云凭证 / 向量库服务端与数据卷。
 - 不改写冻结基线数字（recall@3 = 5/5、MRR = 1.000 只读，可对照不可改）。
 

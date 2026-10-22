@@ -1,0 +1,4 @@
+{
+  "mode": "static",
+  "note": "静态回放：结果来自已提交 JSON；本地 server 才运行冻结基线查询。"
+}

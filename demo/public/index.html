@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>enterprise-rag · 检索证据回放</title>
+  <meta name="description" content="RAG 检索的负结果与消融：跑通不等于检索质量。结果回放 + 本地冻结基线查询。">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">enterprise-rag · retrieval evidence</p>
+        <h1>RAG 检索：<br>跑通不等于检索质量。<br>负结果也是结果。</h1>
+        <p class="lede">
+          私有语料不在仓内。这里回放已提交的实验结果，并在本地跑冻结基线；
+          每个数字都标注它来自哪份结果文件。
+        </p>
+      </div>
+      <div class="mode-card">
+        <span id="mode-badge" class="badge badge-neutral">加载中</span>
+        <p id="mode-note" class="mode-note">正在读取构建产物…</p>
+        <div class="mode-actions">
+          <button id="rerun" class="button" type="button" disabled>重跑回放</button>
+          <a id="raw-link" class="button button-ghost" href="./results.json" target="_blank" rel="noreferrer">查看 results.json</a>
+        </div>
+        <p id="rerun-status" class="rerun-status" aria-live="polite"></p>
+      </div>
+    </header>
+
+    <div id="error" class="error" hidden></div>
+
+    <section id="summary" class="summary" aria-label="关键数字"></section>
+
+    <section id="layers" class="layers" aria-label="检索层对比"></section>
+
+    <section class="panel ablations" aria-labelledby="ablations-title">
+      <div class="panel-heading">
+        <h2 id="ablations-title">消融与负结果</h2>
+        <span class="muted">这些表格是这组实验最值钱的部分</span>
+      </div>
+      <div id="ablations"></div>
+    </section>
+
+    <section class="panel query-panel" aria-labelledby="query-title">
+      <div class="panel-heading">
+        <h2 id="query-title">本地冻结基线查询</h2>
+        <span id="query-scope" class="muted"></span>
+      </div>
+      <form id="query-form" class="query-form">
+        <input id="query-input" type="text" maxlength="200" autocomplete="off" placeholder="输入 query" aria-label="检索 query">
+        <button id="query-button" class="button" type="submit">检索</button>
+      </form>
+      <p id="query-note" class="muted"></p>
+      <div id="query-results" class="query-results"></div>
+    </section>
+
+    <section class="panel findings" aria-labelledby="findings-title">
+      <div class="panel-heading">
+        <h2 id="findings-title">这组实验说明了什么</h2>
+        <span class="muted">数字来自已提交结果</span>
+      </div>
+      <ul id="findings"></ul>
+    </section>
+
+    <section class="panel boundaries" aria-labelledby="refutes-title">
+      <div class="panel-heading">
+        <h2 id="refutes-title">这个 Demo 不证明什么</h2>
+        <span class="muted">refutes</span>
+      </div>
+      <ul id="refutes"></ul>
+    </section>
+
+    <section class="panel provenance" aria-labelledby="meta-title">
+      <div class="panel-heading">
+        <h2 id="meta-title">构建信息</h2>
+        <span class="muted">回放的是哪一次运行</span>
+      </div>
+      <dl id="meta"></dl>
+    </section>
+
+    <footer class="footer">
+      <p>
+        <strong>真实：</strong>数字来自 <code>results/hybrid_m1.json</code>、
+        <code>results/dense_m2.json</code>、<code>results/metamorphic_m3.json</code>；
+        本地查询跑 <code>baseline/rag_demo.py</code> 的冻结基线。
+        <strong>不是：</strong>私有语料的重跑、生产 RAG、或统计显著的检索质量结论。
+      </p>
+    </footer>
+  </div>
+  <noscript>这个页面需要 JavaScript 才能读取 results.json。</noscript>
+  <script src="./app.js"></script>
+</body>
+</html>

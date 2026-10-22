@@ -32,6 +32,8 @@ jobs:
           else
             echo "no Python sources tracked"
           fi
+      - name: Demo contract tests
+        run: python -m unittest demo/test_demo.py -v
       - name: Check that every relative Markdown link resolves
         run: |
           python - <<'PY'

@@ -1,0 +1,435 @@
+{
+  "meta": {
+    "repo": "enterprise-rag",
+    "demo": "retrieval-evidence",
+    "commit": "afadb1c",
+    "worktree_dirty": true,
+    "dirty_paths": [
+      "demo/"
+    ],
+    "generated_at": "2026-10-22T07:34:49+00:00",
+    "mode": "result-replay+baseline-live",
+    "python": "3.12.3",
+    "note": "结果回放：私有 11994-chunk 语料不在仓内；/api/query 只跑 7-doc/10-chunk 冻结基线。"
+  },
+  "summary": {
+    "baseline": {
+      "recall": "5/5",
+      "mrr": 1.0,
+      "docs": 7,
+      "chunks": 10
+    },
+    "hybrid": {
+      "recall": "8/10",
+      "recall_val": 0.8,
+      "mrr": 0.55,
+      "docs": 537,
+      "chunks": 11994
+    },
+    "dense": {
+      "recall": "5/10",
+      "recall_val": 0.5,
+      "mrr": 0.45,
+      "docs": 537,
+      "chunks": 11994
+    },
+    "metamorphic": {
+      "invariant_before": 6,
+      "invariant_after": 0,
+      "desirable_before": 11,
+      "desirable_after": 8,
+      "fixed_by_normalizer": 9,
+      "relations": 6,
+      "cases_per_run": 60
+    },
+    "rerank": {
+      "delta_recall": 0,
+      "mrr_on": 0.55,
+      "mrr_off": 0.55
+    }
+  },
+  "layers": [
+    {
+      "id": "baseline",
+      "title": "冻结基线",
+      "scope": "7 docs / 10 chunks",
+      "tone": "neutral",
+      "metrics": [
+        {
+          "label": "recall@3",
+          "value": "5/5",
+          "source": "results/hybrid_m1.json#/baseline_frozen/recall_at_3"
+        },
+        {
+          "label": "MRR",
+          "value": "1.000",
+          "source": "results/hybrid_m1.json#/baseline_frozen/mrr"
+        },
+        {
+          "label": "docs",
+          "value": 7,
+          "source": "results/hybrid_m1.json#/baseline_frozen/corpus_docs"
+        },
+        {
+          "label": "chunks",
+          "value": 10,
+          "source": "results/hybrid_m1.json#/baseline_frozen/corpus_chunks"
+        }
+      ],
+      "verdict": "链路跑通；这是 7 文档 toy，不是检索质量。"
+    },
+    {
+      "id": "hybrid",
+      "title": "M1 稀疏融合",
+      "scope": "537 docs / 11994 chunks",
+      "tone": "ok",
+      "metrics": [
+        {
+          "label": "recall@3",
+          "value": "8/10",
+          "source": "results/hybrid_m1.json#/main/recall_at_3"
+        },
+        {
+          "label": "MRR",
+          "value": "0.550",
+          "source": "results/hybrid_m1.json#/main/mrr"
+        },
+        {
+          "label": "p50",
+          "value": "7.56 ms",
+          "source": "results/hybrid_m1.json#/main/latency_ms_p50"
+        },
+        {
+          "label": "p95",
+          "value": "29.09 ms",
+          "source": "results/hybrid_m1.json#/main/latency_ms_p95"
+        }
+      ],
+      "verdict": "真实规模上的主结果；只有 10 题，不能当生产指标。"
+    },
+    {
+      "id": "dense",
+      "title": "M2 真语义向量",
+      "scope": "537 docs / 11994 chunks",
+      "tone": "bad",
+      "metrics": [
+        {
+          "label": "recall@3",
+          "value": "5/10",
+          "source": "results/dense_m2.json#/main_dense_zh/recall_at_3"
+        },
+        {
+          "label": "MRR",
+          "value": "0.450",
+          "source": "results/dense_m2.json#/main_dense_zh/mrr_at_3"
+        },
+        {
+          "label": "p50",
+          "value": "17.904 ms",
+          "source": "results/dense_m2.json#/main_dense_zh/latency_ms/p50"
+        },
+        {
+          "label": "同轮稀疏 p50",
+          "value": "5.459 ms",
+          "source": "results/dense_m2.json#/main_sparse_m1cfg/latency_ms/p50"
+        }
+      ],
+      "verdict": "没有赢稀疏融合，而且更慢；这是一个负结果，不是胜利。"
+    },
+    {
+      "id": "metamorphic",
+      "title": "M3 变异测试",
+      "scope": "6 MRs × 60 cases",
+      "tone": "warn",
+      "metrics": [
+        {
+          "label": "INVARIANT",
+          "value": "6 → 0",
+          "source": "results/metamorphic_m3.json#/comparison/INVARIANT"
+        },
+        {
+          "label": "DESIRABLE",
+          "value": "11 → 8",
+          "source": "results/metamorphic_m3.json#/comparison/DESIRABLE"
+        },
+        {
+          "label": "归一化修复",
+          "value": 9,
+          "source": "results/metamorphic_m3.json#/comparison/*/fixed_by_normalizer"
+        }
+      ],
+      "verdict": "归一化修掉全部 INVARIANT；DESIRABLE 仍有剩余，不能宣称已解决。"
+    }
+  ],
+  "ablations": [
+    {
+      "id": "rerank",
+      "title": "bigram 重排消融",
+      "rows": [
+        {
+          "label": "on",
+          "recall": 8,
+          "mrr": 0.55
+        },
+        {
+          "label": "off",
+          "recall": 8,
+          "mrr": 0.55
+        }
+      ],
+      "delta_recall": 0,
+      "note": "on/off 完全相同，delta_recall=0；重排在这组 query 上没有贡献。",
+      "source": "results/hybrid_m1.json#/rerank_ablation"
+    },
+    {
+      "id": "sweep",
+      "title": "w_cos 权重扫描",
+      "points": [
+        {
+          "w_cos": 0.0,
+          "w_bm25": 1.0,
+          "recall_at_3": 8,
+          "mrr": 0.6333,
+          "n": 10
+        },
+        {
+          "w_cos": 0.2,
+          "w_bm25": 0.8,
+          "recall_at_3": 8,
+          "mrr": 0.6167,
+          "n": 10
+        },
+        {
+          "w_cos": 0.4,
+          "w_bm25": 0.6,
+          "recall_at_3": 8,
+          "mrr": 0.5667,
+          "n": 10
+        },
+        {
+          "w_cos": 0.5,
+          "w_bm25": 0.5,
+          "recall_at_3": 8,
+          "mrr": 0.55,
+          "n": 10
+        },
+        {
+          "w_cos": 0.6,
+          "w_bm25": 0.4,
+          "recall_at_3": 8,
+          "mrr": 0.55,
+          "n": 10
+        },
+        {
+          "w_cos": 0.8,
+          "w_bm25": 0.2,
+          "recall_at_3": 8,
+          "mrr": 0.55,
+          "n": 10
+        },
+        {
+          "w_cos": 1.0,
+          "w_bm25": 0.0,
+          "recall_at_3": 8,
+          "mrr": 0.55,
+          "n": 10
+        }
+      ],
+      "best": {
+        "w_cos": 0.0,
+        "w_bm25": 1.0,
+        "recall_at_3": 8,
+        "mrr": 0.6333,
+        "n": 10
+      },
+      "chosen": {
+        "w_cos": 0.6,
+        "w_bm25": 0.4,
+        "recall_at_3": 8,
+        "mrr": 0.55,
+        "n": 10
+      },
+      "note": "BM25-only (w_cos=0.0) MRR 0.6333 高于照搬的 w_cos=0.6 的 0.5500；权重不能照搬。",
+      "source": "results/hybrid_m1.json#/sweep"
+    },
+    {
+      "id": "overlap",
+      "title": "overlap 扫描",
+      "points": [
+        {
+          "overlap": 0,
+          "recall_at_3": 8,
+          "mrr": 0.5833,
+          "chunks": 11994
+        },
+        {
+          "overlap": 20,
+          "recall_at_3": 8,
+          "mrr": 0.55,
+          "chunks": 11994
+        },
+        {
+          "overlap": 40,
+          "recall_at_3": 8,
+          "mrr": 0.55,
+          "chunks": 11994
+        },
+        {
+          "overlap": 80,
+          "recall_at_3": 8,
+          "mrr": 0.625,
+          "chunks": 11994
+        }
+      ],
+      "best": {
+        "overlap": 80,
+        "recall_at_3": 8,
+        "mrr": 0.625,
+        "chunks": 11994
+      },
+      "chosen": {
+        "overlap": 40,
+        "recall_at_3": 8,
+        "mrr": 0.55,
+        "chunks": 11994
+      },
+      "note": "overlap=80 MRR 0.6250 高于默认 overlap=40 的 0.5500；默认值不是最优。",
+      "source": "results/hybrid_m1.json#/overlap_study"
+    },
+    {
+      "id": "cutoff",
+      "title": "候选截断扫描",
+      "points": [
+        {
+          "candidates": 10,
+          "recall_at_3": 8,
+          "mrr": 0.55
+        },
+        {
+          "candidates": 20,
+          "recall_at_3": 8,
+          "mrr": 0.55
+        },
+        {
+          "candidates": 50,
+          "recall_at_3": 8,
+          "mrr": 0.55
+        },
+        {
+          "candidates": 100,
+          "recall_at_3": 8,
+          "mrr": 0.55
+        },
+        {
+          "candidates": 200,
+          "recall_at_3": 8,
+          "mrr": 0.55
+        },
+        {
+          "candidates": 500,
+          "recall_at_3": 8,
+          "mrr": 0.55
+        }
+      ],
+      "note": "candidates 从 10 到 500，recall 与 MRR 都没变；截断不是这组数据的瓶颈。",
+      "source": "results/hybrid_m1.json#/cutoff_study"
+    }
+  ],
+  "findings": [
+    "M1 稀疏融合：8/10 recall@3，MRR 0.5500，11994 chunks。",
+    "M2 dense：5/10 recall@3，MRR 0.4500；同轮稀疏 p50 5.459 ms，dense p50 17.904 ms。",
+    "bigram 重排 on/off 的 recall 与 MRR 完全相同，delta_recall=0。",
+    "w_cos 扫描的最佳点是 0.0（MRR 0.6333），不是照搬的 0.6（MRR 0.5500）。",
+    "overlap 扫描的最佳点是 80（MRR 0.6250），不是默认的 40（MRR 0.5500）。",
+    "归一化修掉 6 条 INVARIANT 违规，并把 DESIRABLE 从 11 降到 8；仍有剩余。"
+  ],
+  "refutes": [
+    "题集只有 10 题，语料 537 docs / 11994 chunks；这不是生产基准。",
+    "11994-chunk 语料来自私有姊妹仓，不在本仓；本 Demo 回放已提交结果，不重跑那份语料。",
+    "冻结基线 5/5 是 7 docs / 10 chunks 的 toy，只证明链路跑通，不证明检索质量。",
+    "dense 用的是中文 BGE，但题集含 1 条英文 query；语言不匹配是未分离的协变量。",
+    "变异关系是手选的 6 条，不是穷尽集合；DESIRABLE 的剩余违规不能被“归一化”一句带过。"
+  ],
+  "baseline_query": {
+    "example": "RAG 由哪几部分组成",
+    "scope": "7 docs / 10 chunks（冻结基线，不是 11994-chunk 结果）"
+  },
+  "sources": {
+    "hybrid": "results/hybrid_m1.json",
+    "dense": "results/dense_m2.json",
+    "metamorphic": "results/metamorphic_m3.json",
+    "baseline": "baseline/rag_demo.py"
+  },
+  "verification": {
+    "status": "MATCH",
+    "checks": [
+      {
+        "name": "baseline.recall_at_3",
+        "actual": "5/5",
+        "expected": "5/5",
+        "ok": true
+      },
+      {
+        "name": "baseline.mrr",
+        "actual": 1.0,
+        "expected": 1.0,
+        "ok": true
+      },
+      {
+        "name": "hybrid.recall_at_3",
+        "actual": 8,
+        "expected": 8,
+        "ok": true
+      },
+      {
+        "name": "hybrid.mrr",
+        "actual": 0.55,
+        "expected": 0.55,
+        "ok": true
+      },
+      {
+        "name": "dense.recall_at_3",
+        "actual": "5/10",
+        "expected": "5/10",
+        "ok": true
+      },
+      {
+        "name": "dense.mrr",
+        "actual": 0.45,
+        "expected": 0.45,
+        "ok": true
+      },
+      {
+        "name": "rerank.delta_recall",
+        "actual": 0,
+        "expected": 0,
+        "ok": true
+      },
+      {
+        "name": "sweep.best_mrr",
+        "actual": 0.6333,
+        "expected": 0.6333,
+        "ok": true
+      },
+      {
+        "name": "overlap.best_mrr",
+        "actual": 0.625,
+        "expected": 0.625,
+        "ok": true
+      },
+      {
+        "name": "metamorphic.invariant_after",
+        "actual": 0,
+        "expected": 0,
+        "ok": true
+      },
+      {
+        "name": "metamorphic.desirable_after",
+        "actual": 8,
+        "expected": 8,
+        "ok": true
+      }
+    ],
+    "mismatches": []
+  }
+}
