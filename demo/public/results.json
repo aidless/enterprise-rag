@@ -2,12 +2,10 @@
   "meta": {
     "repo": "enterprise-rag",
     "demo": "retrieval-evidence",
-    "commit": "afadb1c",
-    "worktree_dirty": true,
-    "dirty_paths": [
-      "demo/"
-    ],
-    "generated_at": "2026-10-22T07:34:49+00:00",
+    "commit": "43c5896",
+    "worktree_dirty": false,
+    "dirty_paths": [],
+    "generated_at": "2026-10-22T07:36:32+00:00",
     "mode": "result-replay+baseline-live",
     "python": "3.12.3",
     "note": "结果回放：私有 11994-chunk 语料不在仓内；/api/query 只跑 7-doc/10-chunk 冻结基线。"
