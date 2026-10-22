@@ -35,8 +35,9 @@ python3 -m http.server -d demo/public   # 任意静态服务器
 python3 -m unittest demo/test_demo.py -v
 ```
 
-覆盖：结果值与源 JSON 一致、负结果显式、冻结基线查询、已提交 `results.json` 与当前代码一致、
-UI 不硬编码指标、无密钥/绝对路径、本地 HTTP API。
+覆盖：结果值与源 JSON 一致、负结果显式、逐题 sparse/dense 对比、按 MR 拆解、
+冻结基线查询与静态示例、已提交 `results.json` 与当前代码一致、UI 不硬编码指标、
+无密钥/绝对路径、本地 HTTP API。
 
 ## 页面怎么读
 
@@ -47,16 +48,21 @@ UI 不硬编码指标、无密钥/绝对路径、本地 HTTP API。
    - w_cos 扫描的最佳点是 BM25-only，不是照搬的 0.6；
    - overlap 扫描的最佳点不是默认的 40；
    - candidates 从 10 到 500 都没变，截断不是瓶颈。
-4. 本地查询：输入 `RAG 由哪几部分组成`，看冻结基线 top-3；它不碰私有语料。
-5. 底部 findings/refutes：把“这组实验说明了什么”和“不证明什么”分开。
+4. 逐题对比：sparse 8/10、dense 5/10；3 条 sparse-only、0 条 dense-only、5 条 both、2 条 neither。
+   dense 没有在任何一题上单独赢过 sparse。
+5. 变异关系拆解：MR-2 修掉 4 条，MR-3 修掉 2 条；DESIRABLE 的 MR-4/5/6 仍各剩 1–3 条。
+6. 本地查询：点示例按钮，或输入 `RAG 由哪几部分组成` 看冻结基线 top-3；它不碰私有语料。
+7. 底部 findings/refutes：把“这组实验说明了什么”和“不证明什么”分开。
 
 ## 三分钟面试讲法
 
 1. 先讲边界：11994-chunk 语料不在仓内，页面回放已提交结果；本地查询只跑 7-doc 冻结基线。
 2. 讲主结果：M1 8/10 recall、MRR 0.55；M2 dense 5/10、MRR 0.45，没赢稀疏融合而且更慢。
 3. 讲负结果：bigram 重排 on/off 完全相同；w_cos=0.6 不是最优；overlap=40 不是最优。
-4. 讲变异测试：归一化把 INVARIANT 6→0，但 DESIRABLE 11→8 仍有剩余；不宣称“已解决”。
-5. 讲判断：这组数字的价值不在某个高分，而在“哪些改进真的动了指标、哪些没有”。
+4. 讲逐题：dense 的 5 个命中全部落在 sparse 也命中的 extended 题上；3 条 sparse-only 都在 baseline 题；
+   2 条 neither 是 chunking 和做饭干扰项。没有 dense-only。
+5. 讲变异测试：归一化把 INVARIANT 6→0、DESIRABLE 11→8；MR-2/3 修掉 6 条，MR-4/5/6 仍剩 8 条。
+6. 讲判断：这组数字的价值不在某个高分，而在“哪些改进真的动了指标、哪些没有”。
 
 ## 真实与回放
 

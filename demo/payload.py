@@ -55,6 +55,118 @@ def query_baseline(query: str) -> list[dict]:
     ]
 
 
+def _query_table(hybrid: dict, dense: dict) -> dict:
+    sparse_rows = hybrid["main"]["rows"]
+    dense_by_query = {
+        item["q"]: item for item in dense["main_dense_zh"]["per_item"]
+    }
+    rows = []
+    counts = {"both": 0, "sparse_only": 0, "dense_only": 0, "neither": 0}
+    for sparse in sparse_rows:
+        dense_item = dense_by_query.get(sparse["q"], {})
+        sparse_hit = bool(sparse.get("ok"))
+        dense_hit = bool(dense_item.get("hit"))
+        if sparse_hit and dense_hit:
+            delta = "both"
+        elif sparse_hit:
+            delta = "sparse_only"
+        elif dense_hit:
+            delta = "dense_only"
+        else:
+            delta = "neither"
+        counts[delta] += 1
+        rows.append({
+            "q": sparse["q"],
+            "level": sparse.get("level", ""),
+            "lang": dense_item.get("lang", ""),
+            "sparse_hit": sparse_hit,
+            "sparse_rank": sparse.get("rank"),
+            "dense_hit": dense_hit,
+            "dense_rank": dense_item.get("rank"),
+            "delta": delta,
+            "source": (
+                "results/hybrid_m1.json#/main/rows + "
+                "results/dense_m2.json#/main_dense_zh/per_item"
+            ),
+        })
+    return {
+        "rows": rows,
+        "summary": {
+            "n": len(rows),
+            "sparse_hits": sum(1 for row in rows if row["sparse_hit"]),
+            "dense_hits": sum(1 for row in rows if row["dense_hit"]),
+            **counts,
+        },
+        "note": "逐题对比；同一题集，sparse 8/10、dense 5/10。",
+    }
+
+
+def _metamorphic_table(metamorphic: dict) -> dict:
+    runs = {run["tag"]: run for run in metamorphic["runs"]}
+    before = {
+        (case["query"], case["mr"], case.get("mutation", "")): case
+        for case in runs["before_normalizer"]["cases"]
+    }
+    after = {
+        (case["query"], case["mr"], case.get("mutation", "")): case
+        for case in runs["after_normalizer"]["cases"]
+    }
+    by_mr = {}
+    for key in sorted(set(before) | set(after)):
+        b = before.get(key, {})
+        a = after.get(key, {})
+        mr = key[1]
+        row = by_mr.setdefault(mr, {
+            "mr": mr,
+            "class": b.get("class") or a.get("class") or "",
+            "total": 0,
+            "before_violations": 0,
+            "after_violations": 0,
+            "fixed": 0,
+            "examples": [],
+        })
+        row["total"] += 1
+        bv = bool(b.get("violation"))
+        av = bool(a.get("violation"))
+        row["before_violations"] += int(bv)
+        row["after_violations"] += int(av)
+        row["fixed"] += int(bv and not av)
+        if (bv or av) and len(row["examples"]) < 2:
+            row["examples"].append({
+                "query": key[0],
+                "mutation": key[2],
+                "before": bv,
+                "after": av,
+            })
+    rows = sorted(by_mr.values(), key=lambda row: row["mr"])
+    return {
+        "rows": rows,
+        "summary": {
+            "relations": len(rows),
+            "before": sum(row["before_violations"] for row in rows),
+            "after": sum(row["after_violations"] for row in rows),
+            "fixed": sum(row["fixed"] for row in rows),
+        },
+        "note": "按 MR 拆解 before/after；归一化只修掉部分关系。",
+    }
+
+
+def _baseline_examples() -> list[dict]:
+    queries = [
+        "RAG 由哪几部分组成",
+        "分块太大或太小各有什么影响",
+        "向量数据库怎么选型和调优",
+    ]
+    return [
+        {
+            "query": query,
+            "results": query_baseline(query),
+            "scope": "7 docs / 10 chunks 冻结基线",
+        }
+        for query in queries
+    ]
+
+
 def _git_snapshot() -> tuple[str, bool, list[str]]:
     try:
         commit = subprocess.check_output(
@@ -109,6 +221,9 @@ def build_payload(generated_at: str | None = None) -> dict:
         for run in metamorphic["runs"]
         for case in run["cases"]
     })
+    query_table = _query_table(hybrid, dense)
+    metamorphic_table = _metamorphic_table(metamorphic)
+    baseline_examples = _baseline_examples()
 
     layers = [
         {
@@ -269,6 +384,38 @@ def build_payload(generated_at: str | None = None) -> dict:
     check("overlap.best_mrr", best_overlap["mrr"], 0.625)
     check("metamorphic.invariant_after", comparison["INVARIANT"]["after"], 0)
     check("metamorphic.desirable_after", comparison["DESIRABLE"]["after"], 8)
+    check("query_table.n", query_table["summary"]["n"], 10)
+    check("query_table.sparse_hits", query_table["summary"]["sparse_hits"], 8)
+    check("query_table.dense_hits", query_table["summary"]["dense_hits"], 5)
+    check(
+        "query_table.partition",
+        sum(query_table["summary"][key]
+            for key in ("both", "sparse_only", "dense_only", "neither")),
+        10,
+    )
+    check("metamorphic_table.relations", len(metamorphic_table["rows"]), 6)
+    check(
+        "metamorphic_table.before",
+        metamorphic_table["summary"]["before"],
+        comparison["INVARIANT"]["before"] + comparison["DESIRABLE"]["before"],
+    )
+    check(
+        "metamorphic_table.after",
+        metamorphic_table["summary"]["after"],
+        comparison["INVARIANT"]["after"] + comparison["DESIRABLE"]["after"],
+    )
+    check(
+        "metamorphic_table.fixed",
+        metamorphic_table["summary"]["fixed"],
+        comparison["INVARIANT"]["fixed_by_normalizer"]
+        + comparison["DESIRABLE"]["fixed_by_normalizer"],
+    )
+    check("baseline_examples.n", len(baseline_examples), 3)
+    check(
+        "baseline_examples.first_doc",
+        baseline_examples[0]["results"][0]["doc_id"],
+        "rag_overview",
+    )
 
     mismatches = [c for c in checks if not c["ok"]]
     commit, dirty, dirty_paths = _git_snapshot()
@@ -321,6 +468,9 @@ def build_payload(generated_at: str | None = None) -> dict:
         },
         "layers": layers,
         "ablations": ablations,
+        "query_table": query_table,
+        "metamorphic_table": metamorphic_table,
+        "baseline_examples": baseline_examples,
         "findings": findings,
         "refutes": refutes,
         "baseline_query": {

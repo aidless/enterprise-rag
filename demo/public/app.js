@@ -204,6 +204,89 @@ function renderAblations(payload) {
   }
 }
 
+function renderQueryTable(payload) {
+  const data = payload.query_table;
+  const table = $("query-table");
+  table.replaceChildren();
+  if (!data) {
+    $("query-table-note").textContent = "逐题数据不可用。";
+    return;
+  }
+  const thead = el("thead");
+  const headRow = el("tr");
+  for (const label of ["query", "level", "lang", "sparse", "dense", "delta"]) {
+    headRow.append(el("th", null, label));
+  }
+  thead.append(headRow);
+  table.append(thead);
+  const body = el("tbody");
+  for (const row of data.rows || []) {
+    const tr = el("tr");
+    tr.append(el("td", null, row.q));
+    tr.append(el("td", null, row.level));
+    tr.append(el("td", null, row.lang));
+    tr.append(el("td", null, `${row.sparse_hit ? "hit" : "miss"}${row.sparse_rank ? ` @${row.sparse_rank}` : ""}`));
+    tr.append(el("td", null, `${row.dense_hit ? "hit" : "miss"}${row.dense_rank ? ` @${row.dense_rank}` : ""}`));
+    tr.append(el("td", null, row.delta));
+    body.append(tr);
+  }
+  table.append(body);
+  const s = data.summary || {};
+  $("query-table-note").textContent =
+    `${s.n} 题：sparse ${s.sparse_hits} · dense ${s.dense_hits} · ` +
+    `both ${s.both} · sparse-only ${s.sparse_only} · dense-only ${s.dense_only} · neither ${s.neither}`;
+}
+
+function renderMetamorphicTable(payload) {
+  const data = payload.metamorphic_table;
+  const table = $("metamorphic-table");
+  table.replaceChildren();
+  if (!data) {
+    $("metamorphic-table-note").textContent = "变异关系数据不可用。";
+    return;
+  }
+  const thead = el("thead");
+  const headRow = el("tr");
+  for (const label of ["MR", "class", "before", "after", "fixed", "examples"]) {
+    headRow.append(el("th", null, label));
+  }
+  thead.append(headRow);
+  table.append(thead);
+  const body = el("tbody");
+  for (const row of data.rows || []) {
+    const tr = el("tr");
+    tr.append(el("td", null, row.mr));
+    tr.append(el("td", null, row.class));
+    tr.append(el("td", null, fmt(row.before_violations)));
+    tr.append(el("td", null, fmt(row.after_violations)));
+    tr.append(el("td", null, fmt(row.fixed)));
+    const examples = (row.examples || [])
+      .map((item) => `${item.query} (${item.mutation}) ${item.before ? "violation" : "ok"}→${item.after ? "violation" : "ok"}`)
+      .join("；");
+    tr.append(el("td", null, examples || "—"));
+    body.append(tr);
+  }
+  table.append(body);
+  const s = data.summary || {};
+  $("metamorphic-table-note").textContent =
+    `${s.relations} 条关系：before ${s.before} → after ${s.after}，fixed ${s.fixed}。`;
+}
+
+function renderBaselineExamples(payload) {
+  const root = $("example-queries");
+  root.replaceChildren();
+  for (const example of payload.baseline_examples || []) {
+    const button = el("button", "button button-ghost example-button", `示例：${example.query}`);
+    button.type = "button";
+    button.addEventListener("click", () => {
+      $("query-input").value = example.query;
+      $("query-scope").textContent = example.scope;
+      renderQueryResults(example.results);
+    });
+    root.append(button);
+  }
+}
+
 function renderQueryResults(results) {
   const root = $("query-results");
   root.replaceChildren();
@@ -278,17 +361,20 @@ function renderMode() {
   input.disabled = !live;
   button.disabled = !live;
   $("query-note").textContent = live
-    ? "只在冻结基线上检索，不碰私有语料。"
-    : "静态回放不支持查询；本地运行 python3 demo/server.py 后可交互。";
+    ? "示例可直接点；自定义 query 走 /api/query，只跑冻结基线。"
+    : "静态回放可点示例查询；自定义 query 需本地运行 python3 demo/server.py。";
 }
 
 function renderAll() {
   renderSummary(state.payload);
   renderLayers(state.payload);
   renderAblations(state.payload);
+  renderQueryTable(state.payload);
+  renderMetamorphicTable(state.payload);
   renderFindings(state.payload);
   renderMeta(state.payload);
   renderMode();
+  renderBaselineExamples(state.payload);
   $("query-scope").textContent = state.payload.baseline_query.scope;
   $("query-input").placeholder = `例如：${state.payload.baseline_query.example}`;
 }

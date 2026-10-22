@@ -421,3 +421,20 @@ h2 { margin: 0; font-size: 15px; letter-spacing: -0.01em; }
   .provenance dl { grid-template-columns: 1fr; }
   .panel { padding: 15px; }
 }
+
+/* ---------- per-query and per-MR tables (deepening) ---------- */
+.table-panel { margin-bottom: 16px; }
+.table-scroll { overflow-x: auto; }
+.example-queries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 10px;
+}
+.example-button {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+@media (max-width: 760px) {
+  #query-table, #metamorphic-table { min-width: 760px; }
+}

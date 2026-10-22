@@ -81,6 +81,7 @@ class DemoPayloadTest(unittest.TestCase):
         payload = self.payload
         self.assertEqual(payload["verification"]["status"], "MATCH")
         self.assertEqual(payload["verification"]["mismatches"], [])
+        self.assertEqual(len(payload["verification"]["checks"]), 21)
         summary = payload["summary"]
         self.assertEqual(summary["hybrid"]["recall"], "8/10")
         self.assertEqual(summary["dense"]["recall"], "5/10")
@@ -107,6 +108,52 @@ class DemoPayloadTest(unittest.TestCase):
                      if layer["id"] == "dense")
         self.assertEqual(dense["tone"], "bad")
         self.assertIn("负结果", dense["verdict"])
+
+    def test_query_table(self) -> None:
+        data = self.payload["query_table"]
+        summary = data["summary"]
+        self.assertEqual(summary["n"], 10)
+        self.assertEqual(summary["sparse_hits"], 8)
+        self.assertEqual(summary["dense_hits"], 5)
+        self.assertEqual(summary["both"], 5)
+        self.assertEqual(summary["sparse_only"], 3)
+        self.assertEqual(summary["dense_only"], 0)
+        self.assertEqual(summary["neither"], 2)
+        by_query = {row["q"]: row for row in data["rows"]}
+        self.assertEqual(by_query["RAG 由哪几部分组成"]["delta"], "sparse_only")
+        self.assertEqual(
+            by_query["分块太大或太小各有什么影响"]["delta"], "neither"
+        )
+        self.assertEqual(by_query["QLoRA 4bit 量化 LoRA rank"]["lang"], "en")
+
+    def test_metamorphic_table(self) -> None:
+        data = self.payload["metamorphic_table"]
+        summary = data["summary"]
+        self.assertEqual(summary["relations"], 6)
+        self.assertEqual(summary["before"], 17)
+        self.assertEqual(summary["after"], 8)
+        self.assertEqual(summary["fixed"], 9)
+        rows = {row["mr"]: row for row in data["rows"]}
+        self.assertEqual(rows["MR-2"]["fixed"], 4)
+        invariant_after = sum(
+            row["after_violations"] for row in data["rows"]
+            if row["class"] == "INVARIANT"
+        )
+        desirable_after = sum(
+            row["after_violations"] for row in data["rows"]
+            if row["class"] == "DESIRABLE"
+        )
+        self.assertEqual(invariant_after, 0)
+        self.assertEqual(desirable_after, 8)
+        self.assertTrue(rows["MR-4"]["examples"])
+
+    def test_baseline_examples(self) -> None:
+        examples = self.payload["baseline_examples"]
+        self.assertEqual(len(examples), 3)
+        for example in examples:
+            self.assertTrue(example["query"])
+            self.assertTrue(example["results"])
+        self.assertEqual(examples[0]["results"][0]["doc_id"], "rag_overview")
 
     def test_committed_artifact_matches_current_values(self) -> None:
         artifact = PUBLIC / "results.json"
@@ -171,6 +218,8 @@ class DemoGuardTest(unittest.TestCase):
         for element_id in (
             "mode-badge", "mode-note", "rerun", "summary", "layers",
             "ablations", "query-form", "query-input", "query-results",
+            "query-table", "query-table-note", "metamorphic-table",
+            "metamorphic-table-note", "example-queries",
             "findings", "refutes", "meta", "error",
         ):
             self.assertIn(f'id="{element_id}"', html, element_id)

@@ -2,10 +2,15 @@
   "meta": {
     "repo": "enterprise-rag",
     "demo": "retrieval-evidence",
-    "commit": "43c5896",
-    "worktree_dirty": false,
-    "dirty_paths": [],
-    "generated_at": "2026-10-22T07:36:32+00:00",
+    "commit": "79371c5",
+    "worktree_dirty": true,
+    "dirty_paths": [
+      "demo/payload.py",
+      "demo/public/app.js",
+      "demo/public/index.html",
+      "demo/public/style.css"
+    ],
+    "generated_at": "2026-10-22T08:00:20+00:00",
     "mode": "result-replay+baseline-live",
     "python": "3.12.3",
     "note": "结果回放：私有 11994-chunk 语料不在仓内；/api/query 只跑 7-doc/10-chunk 冻结基线。"
@@ -333,6 +338,352 @@
       "source": "results/hybrid_m1.json#/cutoff_study"
     }
   ],
+  "query_table": {
+    "rows": [
+      {
+        "q": "RAG 由哪几部分组成",
+        "level": "baseline",
+        "lang": "zh",
+        "sparse_hit": true,
+        "sparse_rank": 3,
+        "dense_hit": false,
+        "dense_rank": null,
+        "delta": "sparse_only",
+        "source": "results/hybrid_m1.json#/main/rows + results/dense_m2.json#/main_dense_zh/per_item"
+      },
+      {
+        "q": "分块太大或太小各有什么影响",
+        "level": "baseline",
+        "lang": "zh",
+        "sparse_hit": false,
+        "sparse_rank": null,
+        "dense_hit": false,
+        "dense_rank": null,
+        "delta": "neither",
+        "source": "results/hybrid_m1.json#/main/rows + results/dense_m2.json#/main_dense_zh/per_item"
+      },
+      {
+        "q": "向量数据库怎么选型和调优",
+        "level": "baseline",
+        "lang": "zh",
+        "sparse_hit": true,
+        "sparse_rank": 3,
+        "dense_hit": false,
+        "dense_rank": null,
+        "delta": "sparse_only",
+        "source": "results/hybrid_m1.json#/main/rows + results/dense_m2.json#/main_dense_zh/per_item"
+      },
+      {
+        "q": "如何评估问答系统的效果",
+        "level": "baseline",
+        "lang": "zh",
+        "sparse_hit": true,
+        "sparse_rank": 2,
+        "dense_hit": false,
+        "dense_rank": null,
+        "delta": "sparse_only",
+        "source": "results/hybrid_m1.json#/main/rows + results/dense_m2.json#/main_dense_zh/per_item"
+      },
+      {
+        "q": "番茄炒蛋怎么做",
+        "level": "baseline",
+        "lang": "zh",
+        "sparse_hit": false,
+        "sparse_rank": null,
+        "dense_hit": false,
+        "dense_rank": null,
+        "delta": "neither",
+        "source": "results/hybrid_m1.json#/main/rows + results/dense_m2.json#/main_dense_zh/per_item"
+      },
+      {
+        "q": "翻转率 分层 判定标准",
+        "level": "extended",
+        "lang": "zh",
+        "sparse_hit": true,
+        "sparse_rank": 1,
+        "dense_hit": true,
+        "dense_rank": 1,
+        "delta": "both",
+        "source": "results/hybrid_m1.json#/main/rows + results/dense_m2.json#/main_dense_zh/per_item"
+      },
+      {
+        "q": "McNemar 检验 样本量 门槛",
+        "level": "extended",
+        "lang": "zh",
+        "sparse_hit": true,
+        "sparse_rank": 1,
+        "dense_hit": true,
+        "dense_rank": 1,
+        "delta": "both",
+        "source": "results/hybrid_m1.json#/main/rows + results/dense_m2.json#/main_dense_zh/per_item"
+      },
+      {
+        "q": "QLoRA 4bit 量化 LoRA rank",
+        "level": "extended",
+        "lang": "en",
+        "sparse_hit": true,
+        "sparse_rank": 1,
+        "dense_hit": true,
+        "dense_rank": 1,
+        "delta": "both",
+        "source": "results/hybrid_m1.json#/main/rows + results/dense_m2.json#/main_dense_zh/per_item"
+      },
+      {
+        "q": "成本 协商 非劣效",
+        "level": "extended",
+        "lang": "zh",
+        "sparse_hit": true,
+        "sparse_rank": 3,
+        "dense_hit": true,
+        "dense_rank": 2,
+        "delta": "both",
+        "source": "results/hybrid_m1.json#/main/rows + results/dense_m2.json#/main_dense_zh/per_item"
+      },
+      {
+        "q": "门禁 零耦合 反作弊",
+        "level": "extended",
+        "lang": "zh",
+        "sparse_hit": true,
+        "sparse_rank": 1,
+        "dense_hit": true,
+        "dense_rank": 1,
+        "delta": "both",
+        "source": "results/hybrid_m1.json#/main/rows + results/dense_m2.json#/main_dense_zh/per_item"
+      }
+    ],
+    "summary": {
+      "n": 10,
+      "sparse_hits": 8,
+      "dense_hits": 5,
+      "both": 5,
+      "sparse_only": 3,
+      "dense_only": 0,
+      "neither": 2
+    },
+    "note": "逐题对比；同一题集，sparse 8/10、dense 5/10。"
+  },
+  "metamorphic_table": {
+    "rows": [
+      {
+        "mr": "MR-1",
+        "class": "INVARIANT",
+        "total": 10,
+        "before_violations": 0,
+        "after_violations": 0,
+        "fixed": 0,
+        "examples": []
+      },
+      {
+        "mr": "MR-2",
+        "class": "INVARIANT",
+        "total": 10,
+        "before_violations": 4,
+        "after_violations": 0,
+        "fixed": 4,
+        "examples": [
+          {
+            "query": "RAG 由哪几部分组成",
+            "mutation": "whitespace",
+            "before": true,
+            "after": false
+          },
+          {
+            "query": "分块太大或太小各有什么影响",
+            "mutation": "whitespace",
+            "before": true,
+            "after": false
+          }
+        ]
+      },
+      {
+        "mr": "MR-3",
+        "class": "INVARIANT",
+        "total": 10,
+        "before_violations": 2,
+        "after_violations": 0,
+        "fixed": 2,
+        "examples": [
+          {
+            "query": "McNemar 检验 样本量 门槛",
+            "mutation": "casewidth",
+            "before": true,
+            "after": false
+          },
+          {
+            "query": "QLoRA 4bit 量化 LoRA rank",
+            "mutation": "casewidth",
+            "before": true,
+            "after": false
+          }
+        ]
+      },
+      {
+        "mr": "MR-4",
+        "class": "DESIRABLE",
+        "total": 10,
+        "before_violations": 4,
+        "after_violations": 3,
+        "fixed": 1,
+        "examples": [
+          {
+            "query": "QLoRA 4bit 量化 LoRA rank",
+            "mutation": "order",
+            "before": true,
+            "after": true
+          },
+          {
+            "query": "RAG 由哪几部分组成",
+            "mutation": "order",
+            "before": true,
+            "after": false
+          }
+        ]
+      },
+      {
+        "mr": "MR-5",
+        "class": "DESIRABLE",
+        "total": 10,
+        "before_violations": 4,
+        "after_violations": 3,
+        "fixed": 1,
+        "examples": [
+          {
+            "query": "QLoRA 4bit 量化 LoRA rank",
+            "mutation": "drop_last",
+            "before": true,
+            "after": false
+          },
+          {
+            "query": "向量数据库怎么选型和调优",
+            "mutation": "drop_last",
+            "before": true,
+            "after": true
+          }
+        ]
+      },
+      {
+        "mr": "MR-6",
+        "class": "DESIRABLE",
+        "total": 10,
+        "before_violations": 3,
+        "after_violations": 2,
+        "fixed": 1,
+        "examples": [
+          {
+            "query": "RAG 由哪几部分组成",
+            "mutation": "stopword",
+            "before": true,
+            "after": false
+          },
+          {
+            "query": "向量数据库怎么选型和调优",
+            "mutation": "stopword",
+            "before": true,
+            "after": true
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "relations": 6,
+      "before": 17,
+      "after": 8,
+      "fixed": 9
+    },
+    "note": "按 MR 拆解 before/after；归一化只修掉部分关系。"
+  },
+  "baseline_examples": [
+    {
+      "query": "RAG 由哪几部分组成",
+      "results": [
+        {
+          "score": 1.0,
+          "chunk_id": "rag_overview#c0",
+          "doc_id": "rag_overview",
+          "title": "RAG 的基本原理",
+          "text": "RAG 的基本原理 检索增强生成（RetrievalAugmented Generation，简称 RAG）由三部分组成：检索器、生成器和知识库。工作流程是先把用户问题向量化，从知识库中检索出最相关的文档片段，再把这些片段拼进提示词，交给大模型生成带依据的回答。RAG 的优势在于不用微调模型就能注入新知识，并且回答可以追溯到具体文档，幻觉率明显低于纯生成。评价 RAG 效果的常用指标包括检索召回率、答案忠实度和端到端正确率。",
+          "chars": 214
+        },
+        {
+          "score": 0.351367,
+          "chunk_id": "chunking#c0",
+          "doc_id": "chunking",
+          "title": "文档分块策略",
+          "text": "文档分块策略 分块是 RAG 链路里最容易被低估的一环。分块太大会把不相关的噪声带进提示词，浪费上下文窗口；分块太小又会切断语义，前后指代丢失，检索到了也答不全。常见策略有三种。第一是固定长度切分，简单但容易切断句子。第二是按句子或段落切分，语义完整但长度不均。第三是滑动窗口重叠切分，相邻块保留一部分重叠字符，缓解边界截断。生产实践里一般用句子感知加长度上限的混合策略：先按句切，再把短句拼到上限长度，块之间保留几十字重叠。",
+          "chars": 213
+        },
+        {
+          "score": 0.241187,
+          "chunk_id": "eval#c0",
+          "doc_id": "eval",
+          "title": "问答效果评估方法",
+          "text": "问答效果评估方法 RAG 上线前必须建评测集。做法是准备一批真实用户问题，每个问题标注出能回答它的文档编号，这就是 golden 集。检索侧看召回率：正确答案的文档有没有进 topk，常用 recall@3 和 MRR。生成侧看忠实度：答案里的每条断言能不能在检索片段中找到依据，有条件的团队会再训一个 judge 模型自动打分。",
+          "chars": 165
+        }
+      ],
+      "scope": "7 docs / 10 chunks 冻结基线"
+    },
+    {
+      "query": "分块太大或太小各有什么影响",
+      "results": [
+        {
+          "score": 1.0,
+          "chunk_id": "chunking#c0",
+          "doc_id": "chunking",
+          "title": "文档分块策略",
+          "text": "文档分块策略 分块是 RAG 链路里最容易被低估的一环。分块太大会把不相关的噪声带进提示词，浪费上下文窗口；分块太小又会切断语义，前后指代丢失，检索到了也答不全。常见策略有三种。第一是固定长度切分，简单但容易切断句子。第二是按句子或段落切分，语义完整但长度不均。第三是滑动窗口重叠切分，相邻块保留一部分重叠字符，缓解边界截断。生产实践里一般用句子感知加长度上限的混合策略：先按句切，再把短句拼到上限长度，块之间保留几十字重叠。",
+          "chars": 213
+        },
+        {
+          "score": 0.239452,
+          "chunk_id": "chunking#c1",
+          "doc_id": "chunking",
+          "title": "文档分块策略",
+          "text": "感知加长度上限的混合策略：先按句切，再把短句拼到上限长度，块之间保留几十字重叠。分块参数没有银弹，必须拿检索召回率实测：同一批问题，对比不同块大小下的召回率再定。",
+          "chars": 81
+        },
+        {
+          "score": 0.0,
+          "chunk_id": "vector_db#c1",
+          "doc_id": "vector_db",
+          "title": "向量数据库选型与调优",
+          "text": "量维度与归一化，余弦相似度要求向量先做 L2 归一化，否则长短文本的分数不可比。第二是索引参数，HNSW 的 efconstruction 决定建索引质量，efsearch 决定查询精度与延迟的 tradeoff，上线前要压测出拐点。第三是混合检索，纯向量检索对生僻新词和精确实体经常翻车，线上系统一般向量加关键词做加权融合。选型结论一句话：先暴力后近似，先单机后服务，用评测数据说话。",
+          "chars": 193
+        }
+      ],
+      "scope": "7 docs / 10 chunks 冻结基线"
+    },
+    {
+      "query": "向量数据库怎么选型和调优",
+      "results": [
+        {
+          "score": 1.0,
+          "chunk_id": "vector_db#c0",
+          "doc_id": "vector_db",
+          "title": "向量数据库选型与调优",
+          "text": "向量数据库选型与调优 向量数据库负责存 chunk 向量并做近似最近邻搜索。数据量在几十万以内时，单机 FAISS 的暴力检索精度最高、运维成本最低；数据量上千万或需要在线增删时，再考虑 HNSW 索引或 Milvus、Qdrant 等服务。调优抓三个旋钮。第一是向量维度与归一化，余弦相似度要求向量先做 L2 归一化，否则长短文本的分数不可比。",
+          "chars": 173
+        },
+        {
+          "score": 0.301211,
+          "chunk_id": "vector_db#c1",
+          "doc_id": "vector_db",
+          "title": "向量数据库选型与调优",
+          "text": "量维度与归一化，余弦相似度要求向量先做 L2 归一化，否则长短文本的分数不可比。第二是索引参数，HNSW 的 efconstruction 决定建索引质量，efsearch 决定查询精度与延迟的 tradeoff，上线前要压测出拐点。第三是混合检索，纯向量检索对生僻新词和精确实体经常翻车，线上系统一般向量加关键词做加权融合。选型结论一句话：先暴力后近似，先单机后服务，用评测数据说话。",
+          "chars": 193
+        },
+        {
+          "score": 0.064843,
+          "chunk_id": "rag_overview#c0",
+          "doc_id": "rag_overview",
+          "title": "RAG 的基本原理",
+          "text": "RAG 的基本原理 检索增强生成（RetrievalAugmented Generation，简称 RAG）由三部分组成：检索器、生成器和知识库。工作流程是先把用户问题向量化，从知识库中检索出最相关的文档片段，再把这些片段拼进提示词，交给大模型生成带依据的回答。RAG 的优势在于不用微调模型就能注入新知识，并且回答可以追溯到具体文档，幻觉率明显低于纯生成。评价 RAG 效果的常用指标包括检索召回率、答案忠实度和端到端正确率。",
+          "chars": 214
+        }
+      ],
+      "scope": "7 docs / 10 chunks 冻结基线"
+    }
+  ],
   "findings": [
     "M1 稀疏融合：8/10 recall@3，MRR 0.5500，11994 chunks。",
     "M2 dense：5/10 recall@3，MRR 0.4500；同轮稀疏 p50 5.459 ms，dense p50 17.904 ms。",
@@ -425,6 +776,66 @@
         "name": "metamorphic.desirable_after",
         "actual": 8,
         "expected": 8,
+        "ok": true
+      },
+      {
+        "name": "query_table.n",
+        "actual": 10,
+        "expected": 10,
+        "ok": true
+      },
+      {
+        "name": "query_table.sparse_hits",
+        "actual": 8,
+        "expected": 8,
+        "ok": true
+      },
+      {
+        "name": "query_table.dense_hits",
+        "actual": 5,
+        "expected": 5,
+        "ok": true
+      },
+      {
+        "name": "query_table.partition",
+        "actual": 10,
+        "expected": 10,
+        "ok": true
+      },
+      {
+        "name": "metamorphic_table.relations",
+        "actual": 6,
+        "expected": 6,
+        "ok": true
+      },
+      {
+        "name": "metamorphic_table.before",
+        "actual": 17,
+        "expected": 17,
+        "ok": true
+      },
+      {
+        "name": "metamorphic_table.after",
+        "actual": 8,
+        "expected": 8,
+        "ok": true
+      },
+      {
+        "name": "metamorphic_table.fixed",
+        "actual": 9,
+        "expected": 9,
+        "ok": true
+      },
+      {
+        "name": "baseline_examples.n",
+        "actual": 3,
+        "expected": 3,
+        "ok": true
+      },
+      {
+        "name": "baseline_examples.first_doc",
+        "actual": "rag_overview",
+        "expected": "rag_overview",
         "ok": true
       }
     ],

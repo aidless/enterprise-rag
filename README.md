@@ -6,6 +6,8 @@
 
 [**Live demo**](https://aidless.github.io/enterprise-rag/) · [Demo 文档](demo/README.md)
 
+Demo 还包含逐题 sparse/dense 对比、按 MR 拆解的变异关系表，以及不依赖后端的静态示例查询。
+
 ## 30 秒看清这个仓在做什么
 
 | 模块 | 状态 | 一句话 |

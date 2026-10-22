@@ -43,11 +43,34 @@
       <div id="ablations"></div>
     </section>
 
+    <section class="panel table-panel" aria-labelledby="query-table-title">
+      <div class="panel-heading">
+        <h2 id="query-table-title">逐题对比：sparse vs dense</h2>
+        <span class="muted">同一题集，看 dense 到底赢在哪</span>
+      </div>
+      <div class="table-scroll">
+        <table id="query-table" class="data-table"></table>
+      </div>
+      <p id="query-table-note" class="muted"></p>
+    </section>
+
+    <section class="panel table-panel" aria-labelledby="metamorphic-table-title">
+      <div class="panel-heading">
+        <h2 id="metamorphic-table-title">变异关系拆解</h2>
+        <span class="muted">按 MR 看 before/after，不只看总数</span>
+      </div>
+      <div class="table-scroll">
+        <table id="metamorphic-table" class="data-table"></table>
+      </div>
+      <p id="metamorphic-table-note" class="muted"></p>
+    </section>
+
     <section class="panel query-panel" aria-labelledby="query-title">
       <div class="panel-heading">
         <h2 id="query-title">本地冻结基线查询</h2>
         <span id="query-scope" class="muted"></span>
       </div>
+      <div id="example-queries" class="example-queries"></div>
       <form id="query-form" class="query-form">
         <input id="query-input" type="text" maxlength="200" autocomplete="off" placeholder="输入 query" aria-label="检索 query">
         <button id="query-button" class="button" type="submit">检索</button>
