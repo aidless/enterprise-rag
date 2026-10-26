@@ -1,0 +1,11 @@
+# Generated from static import analysis (see AUDIT.md provenance note).
+# Repo: aidless/enterprise-rag
+# Only top-level third-party imports are listed; stdlib and in-repo modules are excluded.
+# Versions are intentionally unpinned unless a floor is required for API compatibility.
+
+numpy>=1.24  # hybrid/dense_rag.py:29
+scipy  # hybrid/hybrid_rag.py:24
+
+# --- optional / conditionally imported (guarded by try/except or lazily loaded) ---
+# sentence-transformers  # hybrid/dense_rag.py:66
+# torch>=2.0  # hybrid/dense_rag.py:56
