@@ -14,16 +14,26 @@ Demo 还包含逐题 sparse/dense 对比、按 MR 拆解的变异关系表，以
 |---|---|---|
 | `baseline/` | 冻结只读 | `rag_min_demo` 的 7 文档 10 chunk 玩具库，recall@3 = 5/5 / MRR = 1.000，只作对照不改 |
 | `hybrid/` | ✅ 可运行 | CSR 稀疏 TF-IDF + BM25 融合 + bigram 重排；11994 chunk / 537 docs；recall@3 allow-number，MRR 0.55，p50 3.25ms |
-| `hybrid/dense_rag.py` | ✅ 可运行 | M2：本地 bge-small-zh 语义向量对同一题集，recall@3 0.450，**没赢稀疏融合**，慢约 3 倍 |
+| `hybrid/dense_rag.py` | ✅ 可运行 | M2：本地 bge-small-zh 语义向量对同一题集，recall@3 = 5/10、**MRR@3 0.450**，没赢稀疏融合（稀疏 MRR 0.550），慢约 3 倍（p50 17.9ms vs 5.5ms） |
 | `hybrid/metamorphic_test.py` | ✅ 可运行 | M3：6 条 metamorphic relation，查询侧归一化后 INVARIANT 命中归零 |
 | `golden/` `latency/` `harness/` `reranker/` | ❌ 空契约 | 仍是 README 设计位，没有实现 |
 
 ## 诚实边界（先说清，避免误读）
 
-- 冻结基线 `baseline/rag_demo.py` 实测 recall@3 = 5/5、MRR = 1.000，但这是 **7 文档 10 chunk 的 toy 规模**：5/5 证明"链路跑通"，**不证明检索质量**。规模证据在 `paper_agent` 侧（54 万篇 FAISS 基座 + arXiv 增量），不在本仓。
-- 字二元组 TF-IDF + BM25 处理不了同义改写；M2 换成真 embedding 后也**没有**在这个语料上赢（见 `hybrid/RESULTS_M1.md` 与 `RESULTS_M3_METAMORPHIC.md`）。当前 `11994 chunk` 谈不上 ANN。
-- **评测题集只有 10 题**，跨题集迁移能力、拒答能力均未验证。所有"有效/无效"结论都受这个样本量限制。
-- 运行依赖 **numpy + scipy**（dense 版另需本地 HF 模型缓存与 `sentence_transformers`）。语料默认从姊妹仓 `paper_workflow_kb/`、`paper_agent/`、`paper_joint_mem_forget/` 读取，缺目录会显式 `SystemExit` 而不是静默出 0 分。
+**本仓证明了什么：**
+
+- 一条**可运行、可复算**的稀疏+稠密混合检索管线：CSR 稀疏 TF-IDF + BM25 融合 + bigram 重排，在 537 文档 / 11994 chunk 语料上跑出 recall@3 = 8/10、MRR 0.550（`results/hybrid_m1.json`），并有逐题明细。
+- 一个**真语义向量对照**（M2）：bge-small-zh 对同一题集 recall@3 = 5/10、MRR@3 0.450，**没赢**稀疏融合，且 p50 慢约 3 倍（17.9ms vs 5.5ms）——这是本仓的一个真实负结果。
+- 一套**变异测试**（M3）：6 条 metamorphic relation 声明了 INVARIANT（必须成立）与 DESIRABLE（非强制）两类；查询侧加归一化器后 INVARIANT 违反从 6 → 0（`results/metamorphic_m3.json`）。
+- 一个**可复现的 demo 工件**：`demo/test_demo.py` 15 个契约测试锁定提交结果值、负结果显式性、无手写指标、无密钥/绝对路径泄漏（全部通过，无需网络）。
+
+**本仓不证明什么：**
+
+- 冻结基线 `baseline/rag_demo.py` 的 recall@3 = 5/5、MRR = 1.000 是 **7 文档 10 chunk 的 toy 规模**：5/5 证明"链路跑通"，**不证明检索质量**。规模证据在 `paper_agent` 侧（54 万篇 FAISS 基座 + arXiv 增量），不在本仓。
+- 字二元组 TF-IDF + BM25 处理不了同义改写；M2 换成真 embedding 后也**没有**在这个语料上赢。当前 `11994 chunk` 谈不上 ANN——这是稠密索引，不是近似最近邻。
+- **评测题集只有 10 题**（`demo/test_demo.py` 里 `summary["n"] == 10`）。跨题集迁移能力、拒答能力均未验证。所有"有效/无效"结论都受这个样本量限制；10 题的 recall 置信区间宽（M2 bootstrap 95% CI [0.2, 0.8]）。
+- 不宣称任何"RAG 优于/劣于 X"的普适结论。M2 的负结果只在"10 题中文技术语料 + char-bigram 分词 + bge-small-zh"这一组条件下成立。
+- 运行依赖 **numpy + scipy**（dense 版另需本地 HF 模型缓存与 `sentence_transformers`）。语料默认从姊妹仓 `paper_workflow_kb/`、`paper_agent/`、`paper_joint_mem_forget/` 读取，缺目录会显式 `SystemExit` 而不是静默出 0 分——这是 fail-closed：语料缺失时宁可失败，不产出看似合理的假数字。
 
 ## 仓库结构
 
@@ -57,6 +67,17 @@ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
 # M3 变异测试（纯 CPU，几秒）
 python3 hybrid/metamorphic_test.py
 ```
+
+### 测试（无网络，锁定提交值）
+
+```sh
+# demo 契约测试：15 项，验证结果值、负结果显式性、无密钥/路径泄漏
+make demo-test          # 或 python3 -m unittest demo/test_demo.py -v
+```
+
+注意 `demo/test_demo.py` 是**契约测试**——它断言 `demo/public/results.json`
+与 `demo/payload.py` 当前重算一致，不重跑私有语料实验。若你改了
+`demo/payload.py`，需先 `python3 demo/build_static.py` 重建工件，测试才会过。
 
 ## 明确非目标（Non-goals）
 
