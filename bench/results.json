@@ -1,0 +1,58 @@
+{
+  "bench": "hybrid_retrieval_latency",
+  "corpus_docs": 546,
+  "corpus_chunks": 12299,
+  "n_queries": 10,
+  "hits": 10,
+  "recall_at_5": 10,
+  "latency_ms_p50": 4.425,
+  "latency_ms_p95": 29.423,
+  "build_s": 3.94,
+  "tbd_defaults_used": [
+    "max_chars",
+    "overlap",
+    "candidates"
+  ],
+  "rows": [
+    {
+      "q": "RAG 由哪几部分组成",
+      "ok": true
+    },
+    {
+      "q": "分块太大或太小各有什么影响",
+      "ok": true
+    },
+    {
+      "q": "向量数据库怎么选型和调优",
+      "ok": true
+    },
+    {
+      "q": "如何评估问答系统的效果",
+      "ok": true
+    },
+    {
+      "q": "番茄炒蛋怎么做",
+      "ok": true
+    },
+    {
+      "q": "翻转率 分层 判定标准",
+      "ok": true
+    },
+    {
+      "q": "McNemar 检验 样本量 门槛",
+      "ok": true
+    },
+    {
+      "q": "QLoRA 4bit 量化 LoRA rank",
+      "ok": true
+    },
+    {
+      "q": "成本 协商 非劣效",
+      "ok": true
+    },
+    {
+      "q": "门禁 零耦合 反作弊",
+      "ok": true
+    }
+  ]
+}

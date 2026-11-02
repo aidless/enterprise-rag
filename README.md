@@ -66,7 +66,23 @@ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
 
 # M3 变异测试（纯 CPU，几秒）
 python3 hybrid/metamorphic_test.py
+
+# 检索延迟基准（focused，构建 + 10 题真实检索）
+python3 bench/bench_retrieval.py    # → bench/results.json
 ```
+
+### 基准结果（bench/results.json，2026-11-01 实测）
+
+`bench/bench_retrieval.py` 构建 `HybridRetriever` 并对 10 题评测集做真实检索，输出：
+
+| 指标 | 实测值 |
+|---|---|
+| 语料文档 / chunk | 546 / 12299 |
+| 10 题 recall@5 | 10/10 |
+| 检索延迟 p50 / p95 | 4.425 ms / 29.423 ms |
+| 索引构建 | 3.94 s |
+
+这是**检索延迟回归基线**（真实语料，非 toy）：语料随姊妹仓增长而增长（基线冻结时 537 docs / 11994 chunks，现 546 / 12299），延迟与 chunk 数相关。`load_config()` 返回 `(cfg_dict, tbd_used)` 元组——使用 `HybridRetriever` 时必须解包，否则报 `tuple indices must be integers`。
 
 ### 测试（无网络，锁定提交值）
 
