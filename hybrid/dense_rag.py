@@ -31,7 +31,7 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from hybrid_rag import (  # noqa: E402
-    EVAL_SET, EXPECT_HINTS, chunk_doc, load_corpus, Index, SKIP_NAME_RE,
+    EVAL_SET, EXPECT_HINTS, chunk_doc, load_corpus, Index,
 )
 
 RESULTS = HERE.parent / "results" / "dense_m2.json"

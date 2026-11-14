@@ -17,7 +17,7 @@
 依赖：仅 numpy（已装）。零网络、零 API key。
 """
 from __future__ import annotations
-import json, math, os, re, sys, time, statistics
+import json, math, os, re, sys, time
 
 from typing import List, Dict, Tuple
 import numpy as np
