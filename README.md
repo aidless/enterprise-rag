@@ -1,5 +1,7 @@
 # enterprise-rag
 
+[![CI](https://github.com/aidless/enterprise-rag/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/enterprise-rag/actions/workflows/ci.yml)
+
 > 企业级 RAG 检索侧的**本地迁移仓**：从 `rag_min_demo`（单文件 toy demo）向可参数化、可评测、可复算的检索管线演进。
 >
 > 状态：**M1–M3 已实现并跑出真实数字（2026-10-11），但不是生产级**。检索链路、真语义向量对比、变异测试都有可运行代码与落盘结果；缺 50+ 题集、语义级重排、负例拒答场景。

@@ -10,13 +10,15 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
 jobs:
 
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: "3.12"
       - name: Byte-compile every tracked Python file
@@ -59,8 +61,8 @@ jobs:
     name: The byte-compile gate can fail
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: "3.12"
       - name: Break one tracked Python file and require a non-zero exit
@@ -120,7 +122,7 @@ jobs:
     # take effect until the branch is regenerated. Pinned, not latest.
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
       - name: gitleaks (full history)
