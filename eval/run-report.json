@@ -1,0 +1,129 @@
+{
+ "total": 20,
+ "passed": 20,
+ "failed": 0,
+ "selftest": false,
+ "failed_by_axis": {},
+ "results": [
+  {
+   "id": "B-01",
+   "axis": "baseline-chunk",
+   "ok": true,
+   "detail": "7"
+  },
+  {
+   "id": "B-02",
+   "axis": "baseline-chunk",
+   "ok": true,
+   "detail": "10/214"
+  },
+  {
+   "id": "B-03",
+   "axis": "baseline-chunk",
+   "ok": true,
+   "detail": "raised ZeroDivisionError"
+  },
+  {
+   "id": "B-04",
+   "axis": "baseline-retrieval",
+   "ok": true,
+   "detail": "cooking:1.0"
+  },
+  {
+   "id": "B-05",
+   "axis": "baseline-retrieval",
+   "ok": true,
+   "detail": "5/5/1.0"
+  },
+  {
+   "id": "B-06",
+   "axis": "baseline-retrieval",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "C-07",
+   "axis": "payload-contract",
+   "ok": true,
+   "detail": "MATCH/21"
+  },
+  {
+   "id": "C-08",
+   "axis": "payload-contract",
+   "ok": true,
+   "detail": "0/0"
+  },
+  {
+   "id": "C-09",
+   "axis": "payload-contract",
+   "ok": true,
+   "detail": "10/5/3/0/2"
+  },
+  {
+   "id": "D-10",
+   "axis": "results-hybrid",
+   "ok": true,
+   "detail": "10/8/8"
+  },
+  {
+   "id": "D-11",
+   "axis": "results-hybrid",
+   "ok": true,
+   "detail": "0.6333/0.0"
+  },
+  {
+   "id": "D-12",
+   "axis": "results-hybrid",
+   "ok": true,
+   "detail": "80/0.625"
+  },
+  {
+   "id": "E-13",
+   "axis": "results-dense",
+   "ok": true,
+   "detail": "5/10"
+  },
+  {
+   "id": "E-14",
+   "axis": "results-dense",
+   "ok": true,
+   "detail": "0.45/0.45"
+  },
+  {
+   "id": "E-15",
+   "axis": "results-dense",
+   "ok": true,
+   "detail": "True/0.2/0.8"
+  },
+  {
+   "id": "F-16",
+   "axis": "metamorphic",
+   "ok": true,
+   "detail": "6/0/6/0"
+  },
+  {
+   "id": "F-17",
+   "axis": "metamorphic",
+   "ok": true,
+   "detail": "rag query"
+  },
+  {
+   "id": "F-18",
+   "axis": "metamorphic",
+   "ok": true,
+   "detail": "5/casewidth,drop_last,order,stopword,whitespace"
+  },
+  {
+   "id": "G-19",
+   "axis": "query-set",
+   "ok": true,
+   "detail": "10/5"
+  },
+  {
+   "id": "G-20",
+   "axis": "query-set",
+   "ok": true,
+   "detail": "3/0.6/3"
+  }
+ ]
+}

@@ -105,3 +105,31 @@ make demo-test          # 或 python3 -m unittest demo/test_demo.py -v
 ## 许可
 
 MIT（见 `LICENSE`）。
+
+## 验收标准与复算
+
+本节是本仓的验收判据（acceptance criteria）：本仓判为合格的条件是 `python3 eval/run_cases.py` 通过率必须为 100%（20/20），且 `make eval` 退出码必须为 0；任何一条失败即判为不合格。
+
+这 20 题不抄本文的数字，全部真调本仓 API（`baseline/rag_demo.py`、`demo/payload.py`、`hybrid/hybrid_rag.py`、`hybrid/metamorphic_test.py`）或真解析 `results/*.json` 后现算；`expected` 是实跑出来的值，改一行实现就可能变红。
+
+| axis | 条数 | 考什么 |
+|---|---|---|
+| `baseline-chunk` | 3 | 冻结基线 7 篇文档解析、分块结果 10 chunk / 最长 214 字、空 chunk 列表喂 `TfidfIndex` 必须抛 `ZeroDivisionError`（fail-closed） |
+| `baseline-retrieval` | 3 | 「番茄炒蛋怎么做」top-1 = `cooking` 且分数 1.0、EVAL_SET 全跑 5/5 且 MRR 1.0、纯空白 query 必须返回空 |
+| `payload-contract` | 3 | demo 证据包 21 项自检 `status=MATCH`、失败项 0 / mismatch 0、逐题对比表 n=10 / both=5 / sparse_only=3 / dense_only=0 / neither=2 |
+| `results-hybrid` | 3 | `hybrid_m1.json` 逐题 10 行复算 recall=8、w_cos 扫描最佳点 MRR 0.6333（w_cos=0.0）、overlap 扫描最佳点 80 / MRR 0.625 |
+| `results-dense` | 3 | `dense_m2.json` per_item 命中 5/10、从 rank 复算 MRR=0.45 与 committed 一致、bootstrap 95% CI [0.2, 0.8] 覆盖点估计 0.5 |
+| `metamorphic` | 3 | 从 60 条 case 复算 INVARIANT 违规 6 → 0 并与 comparison 块对齐、`normalize_query` 归一化、5 个变异算子键名 |
+| `query-set` | 2 | hybrid 题集 10 题（5 条 extended）、`load_config` 返回 top_k=3 / w_cos=0.6 / 3 个仍走默认值的 TBD 位 |
+
+```bash
+python3 eval/run_cases.py            # 跑全部 20 题（当前 20/20）
+python3 eval/run_cases.py --save     # 重建 eval/run-report.json
+python3 eval/run_cases.py --selftest # 反证：篡改首题期望值必须变红（19/20）
+```
+
+`make eval` 跑上面的 `--save` 版本，再跑 `demo/test_demo.py` 的 15 项契约测试。
+
+**数字如何复算**：每题的 `verify` 字段就是复算代码本身——它真调本仓 API 或读 `results/*.json` 现算，`expected` 是实跑值而非文档抄来的值（本文任何数字变了而实现没跟着变，对应题就会红）。`eval/run-report.json` 带每题的 `id/axis/detail` 与 `failed_by_axis` 汇总，重跑 `--save` 即重建。
+
+**失败归因**：`run_cases.py` 失败时按 axis 汇总，形如 `baseline-chunk: 1 条 —— B-01`。对应模块：`baseline-chunk` / `baseline-retrieval` → `baseline/rag_demo.py`（解析/分块/向量化/融合检索）；`payload-contract` → `demo/payload.py` + `demo/build_static.py`（证据包重建）；`results-hybrid` / `results-dense` → `results/*.json` 及其产出者 `hybrid/hybrid_rag.py`、`hybrid/dense_rag.py`；`metamorphic` → `hybrid/metamorphic_test.py`（归一化器与变异算子）；`query-set` → `hybrid/hybrid_rag.py` 的 `EVAL_SET` 与 `config/bline.yaml`。
