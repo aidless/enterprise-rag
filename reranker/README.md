@@ -1,3 +1,7 @@
+EMPTY CONTRACT: this directory has no implementation and no result files.
+
+The bigram rerank that does exist is `Index.rerank` in `hybrid/hybrid_rag.py`. Its committed ablation is `rerank_ablation` in `results/hybrid_m1.json`. That is not an implementation of this contract.
+
 # reranker/ — 重排接口契约（设计位）
 
 本目录为**契约文档位**，不包含实现代码。

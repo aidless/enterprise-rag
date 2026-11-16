@@ -17,11 +17,13 @@
 | `../results/metamorphic_m3.json` | 每条关系 × 每个变异的逐条结果。 |
 
 ```bash
-cd .. && python3 hybrid/hybrid_rag.py                 # M1，约 3 分钟
+cd .. && python3 hybrid/hybrid_rag.py                 # M1，需要姊妹仓 + numpy/scipy
 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
-  python3 hybrid/dense_rag.py --only zh                # M2 dense
-python3 hybrid/metamorphic_test.py                    # M3，纯 CPU 几秒
+  python3 hybrid/dense_rag.py --only zh                # M2，另需本地 BAAI/bge-small-zh-v1.5
+python3 hybrid/metamorphic_test.py                    # M3，需要同一姊妹仓
 ```
+
+耗时不是 `results/*.json` 里的字段。缺姊妹仓时 `HybridRetriever` 会 `SystemExit`。`make check` 不跑上面三条。
 
 ## 设计意图（保留原文，便于对照"设计 vs 实测"）
 
@@ -34,7 +36,7 @@ python3 hybrid/metamorphic_test.py                    # M3，纯 CPU 几秒
 | 维度 | baseline（冻结只读） | M1 |
 |---|---|---|
 | 语料 | 7 docs / 10 chunks，仅 `.md` | 537 docs / 11994 chunks，`.md/.py/.yaml/.json/.txt` |
-| 索引 | dense 逐点积 | scipy CSR 稀疏（单次查询 ~60s → ~5ms） |
+| 索引 | dense 逐点积 | scipy CSR 稀疏。延迟只引用 JSON，不在这里另写一个倍数 |
 | 过滤 | 无 | 跳过 `tokenizer.json`、`*.safetensors`、`>200KB` 文档 |
 | recall@3 / MRR | 5/5 / 1.000（小库口径） | **8/10 / 0.55**（大库口径） |
 
@@ -42,10 +44,9 @@ python3 hybrid/metamorphic_test.py                    # M3，纯 CPU 几秒
 
 ## 消融结论（短版，详见 RESULTS_M1.md / RESULTS_M3_METAMORPHIC.md）
 
-- **有效**：文件类型扩展（工程事实只在 `.py`/`.json` 里）、稀疏索引（延迟 12000×）、查询侧归一化（NFKC + 大小写 + 空白折叠，使 INVARIANT 变异命中从 allow-number 降到 0 例）。
-- **无效**：bigram 重排（与 cosine 同源，ON/OFF 指标完全相同）、照搬 baseline 的 `w_cos=0.6`
-  （实测纯 BM25 `w_cos=0.0` MRR 0.633 更好）、**真语义向量没赢**（M2：bge-small-zh recall@3 allow-number，MRR@3 0.450，比同题 sparse 的 allow-number / 0.550 差，且 p50 慢约 3 倍；小语料 + char-bigram 的场景结论如此，n=10 不能推广成"embedding 无用"）。
-- **不确定**：overlap（0→0.583，40→0.550，80→0.625，非单调 = 10 题样本量的噪声）。
+- **和 JSON 一致的结果**：`results/hybrid_m1.json` 主结果 recall_at_3 = 8、MRR 0.55、p50 7.56 ms（hardware: not recorded）。`rerank_ablation.delta_recall` = 0。`sweep` 里 MRR 最高的是 w_cos=0.0 的 0.6333，但这是同一 10 题，不是留出集；主配置仍是 w_cos=0.6。`results/dense_m2.json` 里 bge-small-zh 是 5/10、MRR@3 0.45，同文件稀疏臂是 8/10、0.55，p50 分别是 17.904 ms 和 5.459 ms。`results/metamorphic_m3.json` 的 INVARIANT 是 6 → 0，DESIRABLE 归一化后仍是 8。
+- **不能写成结论的**：n=10，bootstrap 区间重叠，无显著性声明。overlap 扫描的 MRR 是 0.5833、0.55、0.55、0.625（overlap 0/20/40/80），非单调，且与主结果同一题集。
+- **文件里没有、因此这里不引用的**：一份英文 encoder 的分数，以及任何不在 `results/*.json` 里的加速倍数。
 
 ## 尚缺（不要对外说这是"生产级"）
 

@@ -12,7 +12,7 @@
 
 ```bash
 cd enterprise-rag
-python3 hybrid/metamorphic_test.py          # 约 5s（含 4s 索引构建）
+python3 hybrid/metamorphic_test.py          # 需要姊妹仓；耗时不是 JSON 字段
 python3 hybrid/metamorphic_test.py --no-fix # 只看"归一化前"
 ```
 

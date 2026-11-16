@@ -3,8 +3,8 @@
 
 与 baseline 的关系：
   - baseline/rag_demo.py 是冻结只读的，本文件不修改它，只在同口径下做对照。
-  - 复用 baseline 的题目口径（5 题 gold），但语料从 7 文档扩到 133 篇
-    （难度上升，因此 recall@3 下降是预期的，不是退化）。
+  - 复用 baseline 的 5 题口径，并另加 5 题。提交结果的语料规模以
+    results/hybrid_m1.json 为准（537 docs / 11994 chunks）。缺姊妹仓时不要编造该数字。
 
 相对 baseline 的真实改进（可对照源码）：
   1. 分块：句子感知 + 硬上限（baseline 是按段落近似）
@@ -131,11 +131,8 @@ BI = lambda s: [s[i:i+2] for i in range(len(s)-1)] or [s]
 class Index:
     """char-bigram TF-IDF (sparse CSR) + BM25。
 
-    性能说明：dense 版把 3209 个 chunk 各存成 |vocab| 维 ndarray，
-    单次 cosine_all 的 3209 次 Python 层点积实测 ~60s；改成 scipy.sparse CSR
-    后单次查询是稀疏矩阵 × 稀疏矩阵，实测 <5ms。 baseline 的 dense 写法在
-    小语料上没问题，扩语料后必须换稀疏实现——这也是本项目「为什么不用纯 Python」
-    的可量化理由。
+    性能说明：查询走一次 CSR 乘法，而不是对每个 chunk 做一次 Python 点积。
+    延迟数字只引用 results/*.json。那些文件没有硬件字段，也不要在这里补一个加速倍数。
     """
 
     def __init__(self, chunks: List[Dict]):

@@ -1,3 +1,7 @@
+EMPTY CONTRACT: this directory has no implementation and no result files.
+
+Committed latency values live in `results/hybrid_m1.json`, `results/dense_m2.json`, and `bench/results.json`. They are not copied here. hardware: not recorded in those files. Do not treat the three p50 values as one measurement.
+
 # latency/ — 延迟记录表位（设计位）
 
 本目录为**记录表位**，不包含实现代码。

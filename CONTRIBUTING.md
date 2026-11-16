@@ -13,8 +13,10 @@ pip install -r requirements.txt   # if present
 ## Verifying your change
 
 ```bash
-# 设计文档仓，无可执行验证
+make check
 ```
+
+`make check` uses the standard library only. It recounts committed metrics, checks the README evidence block, and re-runs the in-repo baseline. It does not download `BAAI/bge-small-zh-v1.5`.
 
 If the repository has a `Makefile`, `make check` or the closest equivalent runs the same
 checks as CI. Please run it before opening a pull request.

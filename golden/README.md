@@ -1,3 +1,5 @@
+EMPTY CONTRACT: this directory has no implementation and no result files.
+
 # golden/ — golden 集契约（设计位）
 
 本目录为**契约文档位**，不包含实现代码。
