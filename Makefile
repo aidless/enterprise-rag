@@ -1,4 +1,8 @@
-.PHONY: demo demo-build demo-test eval
+.PHONY: demo demo-build demo-test eval check
+
+check:
+	python3 check/recompute.py --check
+	python3 -m unittest check.test_recompute demo/test_demo.py -v
 
 demo:
 	python3 demo/server.py

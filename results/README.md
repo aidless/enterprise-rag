@@ -1,16 +1,11 @@
-# results/ — 评测输出契约（设计位）
+# results/
 
-本目录为**契约文档位**，不包含实现代码。
+This directory holds the committed evaluation files:
 
-## 设计意图
+- `hybrid_m1.json` — sparse fusion on 537 documents / 11994 chunks, with per-question rows
+- `dense_m2.json` — bge-small-zh versus the sparse arm on the same questions
+- `metamorphic_m3.json` — per-relation rows before and after the query normalizer
 
-- 每次评测输出落盘：参数快照 + 指标（recall@k / MRR）+ 逐题 rank + 哈希。
-- 数字必须可重算；不挑选报告（全量报告）。
+`make check` recounts the summaries from those rows. Prose elsewhere in the repository is not a second source of numbers. The sister corpus that produced these files is not stored here, so a fresh clone cannot re-index them.
 
-## 位置（占位）
-
-- 无数据文件，仅本 README。真实评测运行产生证据前，一切指标 `TBD`。
-
-## 状态
-
-TBD —— 冻结基线评测结果（recall@3 = 5/5, MRR = 1.000）由 `baseline/rag_demo.py` 现场可复算，本目录不重复落数以免与冻结基线口径漂移。
+The frozen 7-document baseline is re-run from `baseline/rag_demo.py`, not copied into an extra file in this directory.

@@ -2,136 +2,117 @@
 
 [![CI](https://github.com/aidless/enterprise-rag/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/enterprise-rag/actions/workflows/ci.yml)
 
-> 企业级 RAG 检索侧的**本地迁移仓**：从 `rag_min_demo`（单文件 toy demo）向可参数化、可评测、可复算的检索管线演进。
->
-> 状态：**M1–M3 已实现并跑出真实数字（2026-10-11），但不是生产级**。检索链路、真语义向量对比、变异测试都有可运行代码与落盘结果；缺 50+ 题集、语义级重排、负例拒答场景。
+**STATUS: WORK-IN-PROGRESS — not A yet.** The gaps are listed under [Remaining gaps](#remaining-gaps). Retrieval numbers in the block below are rendered from committed JSON by `check/recompute.py`. Do not edit that block by hand.
 
-[**Live demo**](https://aidless.github.io/enterprise-rag/) · [Demo 文档](demo/README.md)
+<!-- EVIDENCE:BEGIN -->
+On the one 10-question set in `results/hybrid_m1.json` and `results/dense_m2.json`, sparse fusion recall@3 is 8/10 (MRR 0.55) and `BAAI/bge-small-zh-v1.5` recall@3 is 5/10 (MRR@3 0.45).
+That comparison is this corpus snapshot only (537 documents / 11994 chunks) and this question set. It is not a generalization result and it is not an enterprise-readiness result.
+With only those 10 questions, recall bootstrap 95% intervals are sparse 0.5–1.0 and dense 0.2–0.8 (seed 20261011, 5000 resamples, recomputed from the per-question hits). The intervals overlap. This repository does not claim that sparse beats dense.
 
-Demo 还包含逐题 sparse/dense 对比、按 MR 拆解的变异关系表，以及不依赖后端的静态示例查询。
+## Published sparse result (`results/hybrid_m1.json`)
 
-## 30 秒看清这个仓在做什么
+Strict top-3 recount from `main.rows`: recall 8/10, MRR 0.55, max hit rank 3. Stored fields: recall_at_3 8, mrr 0.55, recall_rate 0.8, corpus 537 / 11994.
+`hybrid/hybrid_rag.py` `evaluate()` calls `retrieve(..., k=5)` while the field is named recall_at_3. In this file every recorded hit rank is <= 3, so the strict top-3 recount equals the stored field. The name and the call are not the same definition.
+Stored latency on this run: p50 7.56 ms, p95 29.09 ms. hardware: not recorded in this file.
+Same-set sweeps, not held-out tests: best `sweep` row is w_cos 0.0 with MRR 0.6333; the reported main config is w_cos 0.6. Best `overlap_study` row is overlap 80 with MRR 0.625. `rerank_ablation.delta_recall` is 0.
 
-| 模块 | 状态 | 一句话 |
-|---|---|---|
-| `baseline/` | 冻结只读 | `rag_min_demo` 的 7 文档 10 chunk 玩具库，recall@3 = 5/5 / MRR = 1.000，只作对照不改 |
-| `hybrid/` | ✅ 可运行 | CSR 稀疏 TF-IDF + BM25 融合 + bigram 重排；11994 chunk / 537 docs；recall@3 allow-number，MRR 0.55，p50 3.25ms |
-| `hybrid/dense_rag.py` | ✅ 可运行 | M2：本地 bge-small-zh 语义向量对同一题集，recall@3 = 5/10、**MRR@3 0.450**，没赢稀疏融合（稀疏 MRR 0.550），慢约 3 倍（p50 17.9ms vs 5.5ms） |
-| `hybrid/metamorphic_test.py` | ✅ 可运行 | M3：6 条 metamorphic relation，查询侧归一化后 INVARIANT 命中归零 |
-| `golden/` `latency/` `harness/` `reranker/` | ❌ 空契约 | 仍是 README 设计位，没有实现 |
+## Same questions, dense arm (`results/dense_m2.json`)
 
-## 诚实边界（先说清，避免误读）
+Model `BAAI/bge-small-zh-v1.5`, dim 512, build_s 18.088. Dense strict top-3 recount 5/10, MRR 0.45 (stored 5/10, MRR@3 0.45). Sparse arm in this file: 8/10, MRR 0.55 (stored 8/10, MRR@3 0.55).
+Stored latency in this file, sparse arm p50 5.459 ms / p95 47.01 ms; dense arm p50 17.904 ms / p95 109.828 ms. hardware: not recorded in this file. A ratio of those two p50 fields is not stored, and this block does not add one. Do not substitute `hybrid_m1.json` p50 for the sparse p50 in this file; it is a different stored timing.
+No English-encoder metrics are in this file. `hybrid/dense_rag.py` names `sentence-transformers/all-MiniLM-L6-v2`, and running that path requires the model already on disk. This block does not cite an English-encoder score.
 
-**本仓证明了什么：**
-
-- 一条**可运行、可复算**的稀疏+稠密混合检索管线：CSR 稀疏 TF-IDF + BM25 融合 + bigram 重排，在 537 文档 / 11994 chunk 语料上跑出 recall@3 = 8/10、MRR 0.550（`results/hybrid_m1.json`），并有逐题明细。
-- 一个**真语义向量对照**（M2）：bge-small-zh 对同一题集 recall@3 = 5/10、MRR@3 0.450，**没赢**稀疏融合，且 p50 慢约 3 倍（17.9ms vs 5.5ms）——这是本仓的一个真实负结果。
-- 一套**变异测试**（M3）：6 条 metamorphic relation 声明了 INVARIANT（必须成立）与 DESIRABLE（非强制）两类；查询侧加归一化器后 INVARIANT 违反从 6 → 0（`results/metamorphic_m3.json`）。
-- 一个**可复现的 demo 工件**：`demo/test_demo.py` 15 个契约测试锁定提交结果值、负结果显式性、无手写指标、无密钥/绝对路径泄漏（全部通过，无需网络）。
-
-**本仓不证明什么：**
-
-- 冻结基线 `baseline/rag_demo.py` 的 recall@3 = 5/5、MRR = 1.000 是 **7 文档 10 chunk 的 toy 规模**：5/5 证明"链路跑通"，**不证明检索质量**。规模证据在 `paper_agent` 侧（54 万篇 FAISS 基座 + arXiv 增量），不在本仓。
-- 字二元组 TF-IDF + BM25 处理不了同义改写；M2 换成真 embedding 后也**没有**在这个语料上赢。当前 `11994 chunk` 谈不上 ANN——这是稠密索引，不是近似最近邻。
-- **评测题集只有 10 题**（`demo/test_demo.py` 里 `summary["n"] == 10`）。跨题集迁移能力、拒答能力均未验证。所有"有效/无效"结论都受这个样本量限制；10 题的 recall 置信区间宽（M2 bootstrap 95% CI [0.2, 0.8]）。
-- 不宣称任何"RAG 优于/劣于 X"的普适结论。M2 的负结果只在"10 题中文技术语料 + char-bigram 分词 + bge-small-zh"这一组条件下成立。
-- 运行依赖 **numpy + scipy**（dense 版另需本地 HF 模型缓存与 `sentence_transformers`）。语料默认从姊妹仓 `paper_workflow_kb/`、`paper_agent/`、`paper_joint_mem_forget/` 读取，缺目录会显式 `SystemExit` 而不是静默出 0 分——这是 fail-closed：语料缺失时宁可失败，不产出看似合理的假数字。
-
-## 仓库结构
-
-| 路径 | 性质 | 说明 |
+| question | sparse rank | dense rank |
 | --- | --- | --- |
-| `baseline/` | 冻结引用 | `rag_demo.py` + 7 文档，从 `rag_min_demo` 冻结复制，不改逻辑与语料（只读） |
-| `hybrid/` | **可运行** | `hybrid_rag.py`（M1）/ `dense_rag.py`（M2）/ `metamorphic_test.py`（M3）+ 结果报告 |
-| `results/` | 原始输出 | `hybrid_m1.json` `dense_m2.json` `metamorphic_m3.json` |
-| `config/bline.yaml` | 配置位 | 基线参数（权重/TopK/分块上限）设计位，非实现代码 |
-| `reranker/README.md` | 设计位 | 重排接口契约文档位（尚未实现） |
-| `harness/README.md` | 设计位 | 评测驱动契约文档位（尚未实现） |
-| `latency/README.md` | 设计位 | 延迟记录表位 |
-| `golden/README.md` | 设计位 | golden 集契约（冻结期望文档） |
-| `demo.sh` | 演示 | 调冻结基线做一键演示（只读） |
-| `BLINE_REPORT.md` | 迁移报告 | 阶段一：冻结基线与参数位报告 |
-| `LICENSE` | 许可 | MIT（由 `rag_min_demo/bline/LICENSE` 复制） |
+| RAG 由哪几部分组成 | 3 | miss |
+| 分块太大或太小各有什么影响 | miss | miss |
+| 向量数据库怎么选型和调优 | 3 | miss |
+| 如何评估问答系统的效果 | 2 | miss |
+| 番茄炒蛋怎么做 | miss | miss |
+| 翻转率 分层 判定标准 | 1 | 1 |
+| McNemar 检验 样本量 门槛 | 1 | 1 |
+| QLoRA 4bit 量化 LoRA rank | 1 | 1 |
+| 成本 协商 非劣效 | 3 | 2 |
+| 门禁 零耦合 反作弊 | 1 | 1 |
 
-## 复现
+## Bootstrap recomputed from those rows
 
-```sh
-# 冻结基线（只读，仅标准库）
-python3 baseline/rag_demo.py                       # 预期 recall@3 = 5/5, MRR = 1.000
+Recall, same algorithm as `hybrid/dense_rag.py` `bootstrap_ci` (seed 20261011, 5000 resamples): sparse 0.5–1.0 (committed 0.5–1.0); dense 0.2–0.8 (committed 0.2–0.8).
+MRR bootstrap is not stored in the JSON. Recomputed here from per-question reciprocal rank: sparse 0.3167–0.8, dense 0.15–0.75.
+Paired (sparse hit − dense hit) mean 0.3, bootstrap 95% interval 0.0–0.6. This is a description of these ten paired rows, not a significance test.
 
-# M1 hybrid 检索（约 3 分钟，需要姊妹仓在工作区/上级目录）
-python3 hybrid/hybrid_rag.py
+## Metamorphic (`results/metamorphic_m3.json`)
 
-# M2 真语义向量对比（需本地 HF 缓存，必须离线变量）
-HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
-  python3 hybrid/dense_rag.py --only zh
+Recounted INVARIANT violations: 6 before, 0 after (comparison block 6 → 0). DESIRABLE violations: 11 before, 8 after (rate after 0.2667). DESIRABLE failures are still failures of those relations; the normalizer did not clear them.
 
-# M3 变异测试（纯 CPU，几秒）
-python3 hybrid/metamorphic_test.py
+## Latency snapshot that is not gold recall (`bench/results.json`)
 
-# 检索延迟基准（focused，构建 + 10 题真实检索）
-python3 bench/bench_retrieval.py    # → bench/results.json
-```
+Stored corpus 546 / 12299, p50 4.425 ms, p95 29.423 ms, build_s 3.94. hardware: not recorded in this file. The field recall_at_5 is 10. `bench/bench_retrieval.py` sets it with `ok = bool(blob.strip())`, which is true when retrieval returns any text. It is not gold-document recall and it is not comparable to the 8/10 above.
 
-### 基准结果（bench/results.json，2026-11-01 实测）
+## In-repo baseline
 
-`bench/bench_retrieval.py` 构建 `HybridRetriever` 并对 10 题评测集做真实检索，输出：
+`baseline_frozen` in `hybrid_m1.json`: recall@3 5/5, MRR 1.0, 7 documents / 10 chunks. `make check` re-runs `baseline/rag_demo.py` and requires the printed `recall@3 = 5/5` and `MRR = 1.000`. That re-run is the sparse retrieval this clone can execute.
+<!-- EVIDENCE:END -->
 
-| 指标 | 实测值 |
-|---|---|
-| 语料文档 / chunk | 546 / 12299 |
-| 10 题 recall@5 | 10/10 |
-| 检索延迟 p50 / p95 | 4.425 ms / 29.423 ms |
-| 索引构建 | 3.94 s |
+## What `make check` runs
 
-这是**检索延迟回归基线**（真实语料，非 toy）：语料随姊妹仓增长而增长（基线冻结时 537 docs / 11994 chunks，现 546 / 12299），延迟与 chunk 数相关。`load_config()` 返回 `(cfg_dict, tbd_used)` 元组——使用 `HybridRetriever` 时必须解包，否则报 `tuple indices must be integers`。
+`make check` is the fresh-clone path. It uses the Python standard library only. It does not install packages, does not download a model, and does not read the sister corpus.
 
-### 测试（无网络，锁定提交值）
+It recounts recall@3 and MRR from the per-question rows, recomputes the percentile bootstrap with the same seed and index rule as `hybrid/dense_rag.py`, checks this evidence block and the docs for drifted phrases, checks the empty contract directories, and re-runs `baseline/rag_demo.py` (the only sparse index whose documents are in this clone). It also runs `demo/test_demo.py`.
 
 ```sh
-# demo 契约测试：15 项，验证结果值、负结果显式性、无密钥/路径泄漏
-make demo-test          # 或 python3 -m unittest demo/test_demo.py -v
+make check
 ```
 
-注意 `demo/test_demo.py` 是**契约测试**——它断言 `demo/public/results.json`
-与 `demo/payload.py` 当前重算一致，不重跑私有语料实验。若你改了
-`demo/payload.py`，需先 `python3 demo/build_static.py` 重建工件，测试才会过。
+`make eval` is separate. It needs `numpy` and `scipy` already installed, imports `hybrid/hybrid_rag.py`, and runs `eval/run_cases.py` plus the demo contract tests. It still does not download bge.
 
-## 明确非目标（Non-goals）
+## What needs a model, and what this clone cannot re-index
 
-- 不对外宣称生产级；本仓是"迁移准备 + 消融实验"的载体，不是产品。
-- ~~不建远端仓、不对外发布、不 `git push`~~ → **已变更（2026-10-21）**：本仓现已托管于 GitHub `aidless/enterprise-rag`（公开），由 WorkBuddy 接管同步。
-- 不含 venv / 自指 symlink / 云凭证 / 向量库服务端与数据卷。
-- 不改写冻结基线数字（recall@3 = 5/5、MRR = 1.000 只读，可对照不可改）。
+`python3 hybrid/dense_rag.py --only zh` needs two things that `make check` and CI do not fetch:
 
-## 许可
+- a local cache of `BAAI/bge-small-zh-v1.5` (run with `HF_HUB_OFFLINE=1` and `TRANSFORMERS_OFFLINE=1`; the script exits if the cache is missing)
+- the sister corpus directories named in `hybrid/hybrid_rag.py`: `paper_workflow_kb`, `paper_agent`, `paper_joint_mem_forget`
 
-MIT（见 `LICENSE`）。
+The optional English encoder named in that script is `sentence-transformers/all-MiniLM-L6-v2`. No committed results file contains an English-encoder run, so this repository does not quote one. `hybrid/hybrid_rag.py` and `hybrid/metamorphic_test.py` also need that sister corpus plus `numpy` and `scipy`. If the corpus directories are missing, `HybridRetriever` raises `SystemExit`.
 
-## 验收标准与复算
+## Remaining gaps
 
-本节是本仓的验收判据（acceptance criteria）：本仓判为合格的条件是 `python3 eval/run_cases.py` 通过率必须为 100%（20/20），且 `make eval` 退出码必须为 0；任何一条失败即判为不合格。
+1. GitHub About is outside git. The live description on 2026-11-16 was still the sentence quoted below as observed and false. This PR cannot change it. The replacement text is in the next section. The topics `chromadb` and `design-spec` do not match the tree: a search of the repository finds no chromadb use.
+2. `make check` recounts the published 537-document metrics from rows. It does not re-index that corpus, because the sister repositories are not in the clone.
+3. Latency hardware is not a field in `results/hybrid_m1.json`, `results/dense_m2.json`, or `bench/results.json`. The evidence block can only say so.
+4. The question set is still those 10 questions. The weight, overlap, candidate, and rerank sweeps in `hybrid_m1.json` used the same questions. No held-out set was added.
+5. `golden/`, `latency/`, `harness/`, and `reranker/` are still empty contracts. They are marked, not implemented.
+6. `bench/results.json` `recall_at_5` counts non-empty retrieval text. It stays in the file as a latency snapshot with that definition, not as a corrected recall.
 
-这 20 题不抄本文的数字，全部真调本仓 API（`baseline/rag_demo.py`、`demo/payload.py`、`hybrid/hybrid_rag.py`、`hybrid/metamorphic_test.py`）或真解析 `results/*.json` 后现算；`expected` 是实跑出来的值，改一行实现就可能变红。
+## GitHub About
 
-| axis | 条数 | 考什么 |
-|---|---|---|
-| `baseline-chunk` | 3 | 冻结基线 7 篇文档解析、分块结果 10 chunk / 最长 214 字、空 chunk 列表喂 `TfidfIndex` 必须抛 `ZeroDivisionError`（fail-closed） |
-| `baseline-retrieval` | 3 | 「番茄炒蛋怎么做」top-1 = `cooking` 且分数 1.0、EVAL_SET 全跑 5/5 且 MRR 1.0、纯空白 query 必须返回空 |
-| `payload-contract` | 3 | demo 证据包 21 项自检 `status=MATCH`、失败项 0 / mismatch 0、逐题对比表 n=10 / both=5 / sparse_only=3 / dense_only=0 / neither=2 |
-| `results-hybrid` | 3 | `hybrid_m1.json` 逐题 10 行复算 recall=8、w_cos 扫描最佳点 MRR 0.6333（w_cos=0.0）、overlap 扫描最佳点 80 / MRR 0.625 |
-| `results-dense` | 3 | `dense_m2.json` per_item 命中 5/10、从 rank 复算 MRR=0.45 与 committed 一致、bootstrap 95% CI [0.2, 0.8] 覆盖点估计 0.5 |
-| `metamorphic` | 3 | 从 60 条 case 复算 INVARIANT 违规 6 → 0 并与 comparison 块对齐、`normalize_query` 归一化、5 个变异算子键名 |
-| `query-set` | 2 | hybrid 题集 10 题（5 条 extended）、`load_config` 返回 top_k=3 / w_cos=0.6 / 3 个仍走默认值的 TBD 位 |
+Paste this over the repository description (350-character limit). It is the same string `check/recompute.py` builds from the question-set size in `results/hybrid_m1.json`:
 
-```bash
-python3 eval/run_cases.py            # 跑全部 20 题（当前 20/20）
-python3 eval/run_cases.py --save     # 重建 eval/run-report.json
-python3 eval/run_cases.py --selftest # 反证：篡改首题期望值必须变红（19/20）
-```
+> Local research repo: sparse vs dense retrieval on one 10-question set, with committed results. Not production and not enterprise-ready. n=10, no significance claim. golden/latency/harness/reranker are empty contracts.
 
-`make eval` 跑上面的 `--save` 版本，再跑 `demo/test_demo.py` 的 15 项契约测试。
+Observed (false): 混合检索企业 RAG（BM25+向量）的设计文档：含评测指标方案；spec-only，仓库当前不含任何实现代码。
 
-**数字如何复算**：每题的 `verify` 字段就是复算代码本身——它真调本仓 API 或读 `results/*.json` 现算，`expected` 是实跑值而非文档抄来的值（本文任何数字变了而实现没跟着变，对应题就会红）。`eval/run-report.json` 带每题的 `id/axis/detail` 与 `failed_by_axis` 汇总，重跑 `--save` 即重建。
+Also remove the topics `chromadb` and `design-spec`. There is no chromadb client in this repository, and the tree is no longer a design-only snapshot.
 
-**失败归因**：`run_cases.py` 失败时按 axis 汇总，形如 `baseline-chunk: 1 条 —— B-01`。对应模块：`baseline-chunk` / `baseline-retrieval` → `baseline/rag_demo.py`（解析/分块/向量化/融合检索）；`payload-contract` → `demo/payload.py` + `demo/build_static.py`（证据包重建）；`results-hybrid` / `results-dense` → `results/*.json` 及其产出者 `hybrid/hybrid_rag.py`、`hybrid/dense_rag.py`；`metamorphic` → `hybrid/metamorphic_test.py`（归一化器与变异算子）；`query-set` → `hybrid/hybrid_rag.py` 的 `EVAL_SET` 与 `config/bline.yaml`。
+## Paths
+
+Result rows name sister-repo files under `paper_workflow_kb/`, `paper_agent/`, and `paper_joint_mem_forget/`. Those are corpus-relative identifiers from the run that wrote the JSON, not author home directories, and the sister repositories are not shipped here. `CODEOWNERS` names the GitHub login `@aidless`. `.gitignore` notes that a sync tool called WorkBuddy added ignore rules on 2026-10-21; that is a tool label, not an enterprise user. `demo/test_demo.py` rejects `/Users/` and `C:\` patterns in the demo sources.
+
+## Layout
+
+| Path | What it is |
+| --- | --- |
+| `baseline/` | Frozen 7-document demo. `make check` re-runs it. |
+| `hybrid/` | M1–M3 implementation. Full re-run needs the sister corpus. |
+| `results/` | Committed `hybrid_m1.json`, `dense_m2.json`, `metamorphic_m3.json`. |
+| `bench/results.json` | Later latency snapshot. Its recall field is not gold recall. |
+| `demo/` | Replay of the committed JSON plus the frozen baseline. |
+| `golden/` `latency/` `harness/` `reranker/` | Empty contracts. See each README. |
+| `FAILURE_MODES.md` | Limits of the 10-question comparison. |
+| `BLINE_REPORT.md` | Historical stage-1 snapshot, not current status. |
+
+[Live demo workflow](https://aidless.github.io/enterprise-rag/) publishes `demo/public`. `demo/test_demo.py` checks that artifact against the JSON. This PR does not change `demo/public`.
+
+## License
+
+MIT. See `LICENSE`.

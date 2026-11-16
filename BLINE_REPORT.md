@@ -1,5 +1,7 @@
 # B 线（enterprise-rag）迁移准备报告
 
+> HISTORICAL SNAPSHOT, stage 1, written before M1. This file is not the current status. Current evidence is `README.md`. Sentences below describe that earlier skeleton.
+
 > 冻结声明：`baseline/rag_demo.py` 与 `baseline/docs/`（即 `baseline/` 下 7 个文档）为 `rag_min_demo` 的**只读冻结复制**，本仓不改其逻辑与语料。
 > 基线数字冻结：recall@3 = 5/5，MRR = 1.000（只可对照，不可改写）。
 
@@ -17,7 +19,7 @@
 
 - `LICENSE`：MIT（由 `rag_min_demo/bline/LICENSE` 复制，Copyright 2026 rag_min_demo contributors）。
 
-## 3. 本仓纳入清单（骨架，零核心检索代码）
+## 3. 阶段一写入时的清单（当时还没有 hybrid 实现）
 
 | 类别 | 路径 | 状态 |
 | --- | --- | --- |
@@ -36,9 +38,9 @@
 ## 4. 排除项 / 尚未做
 
 - venv、`.venv`、依赖安装产物；自指 symlink；云凭证（`*.pem`、`*credentials*`）；向量库服务端与数据卷。
-- **核心检索代码**（融合/重排/评测的生产实现）——本仓暂不写，留待后续里程碑。
-- **远端仓 / 推送 / 发布**——需用户另行授权，本仓为纯本地骨架。
+- 撰写本报告时，融合/重排/评测实现尚未写入。随后的 M1–M3 代码现在在 `hybrid/`，数字在 `results/`。本段不把当时的空骨架说成当前事实。
+- 撰写本报告时，远端仓尚未作为本文件的交付物。仓库后来托管于 GitHub `aidless/enterprise-rag`。
 
 ## 5. 状态
 
-本地迁移准备骨架**就绪**，零核心代码、零密钥、零绝对路径残留；下一步（需授权）才是"建远端空仓并推送"。
+阶段一快照当时是本地骨架。当前状态以 `README.md` 为准，不以本节为准。

@@ -1,5 +1,7 @@
 # STATUS
 
-Status: design-spec snapshot.
+STATUS: WORK-IN-PROGRESS — not A yet.
 
-Spec only, no code yet by design. See README Key Features for the 6 planned items; each will get a row in the roadmap table when implementation starts.
+M1–M3 code and the committed result JSON files are in this repository. An older sentence in this file said there was no implementation. That sentence is withdrawn.
+
+Current evidence and the remaining grade gaps are in `README.md`. Offline command: `make check`.

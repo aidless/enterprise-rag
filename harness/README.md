@@ -1,3 +1,7 @@
+EMPTY CONTRACT: this directory has no implementation and no result files.
+
+The executable checks that do exist are `make check`, `eval/run_cases.py`, and `demo/test_demo.py`. This directory is still only a design note.
+
 # harness/ — 评测驱动契约（设计位）
 
 本目录为**契约文档位**，不包含实现代码。评测驱动的唯一权威是"实测数字可重算"，本目录定义重算规范。

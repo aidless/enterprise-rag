@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""bench_retrieval.py — enterprise-rag 检索延迟基准（真实运行，零网络）。
+"""bench_retrieval.py — latency snapshot helper.
 
-对 M1 hybrid 检索器做一次真实的 10 题评测 + 延迟测量：
-  - 构建 HybridRetriever（从姊妹仓语料索引 537 docs / ~11994 chunks）
-  - 跑 EVAL_SET 10 题，测 p50 / p95 单次检索延迟
-  - 输出 recall@5、MRR（同口径复算）
+The committed bench/results.json field recall_at_5 counts queries that
+returned any text (`ok = bool(blob.strip())`). It is not gold-document recall
+and it is not the recall in results/hybrid_m1.json.
 
-注意 load_config() 返回 (cfg_dict, tbd_used) 元组，必须解包再传给 HybridRetriever。
-只做索引构建 + 10 题检索（不做参数扫描），是 focused 延迟基准。
+Re-running this file needs the sister corpus and overwrites bench/results.json.
+load_config() returns (cfg_dict, tbd_used) and must be unpacked.
 """
 from __future__ import annotations
 import json, os, sys, time
